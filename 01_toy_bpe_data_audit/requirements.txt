@@ -1,0 +1,12 @@
+# 本周最小依赖（CPU，峰值内存 <2GB）
+numpy>=1.26
+pandas>=2.0
+matplotlib>=3.8
+requests>=2.31
+beautifulsoup4>=4.12
+tokenizers>=0.19
+jieba>=0.42.1        # 中文 tokens/word 比值；缺失时该列为空而非假数字
+ipykernel>=6.29
+nbformat>=5.9
+nbclient>=0.10
+pytest>=8.0

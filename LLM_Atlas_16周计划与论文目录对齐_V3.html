@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17243d">
+<meta name="description" content="137 篇论文与研究报告、20个知识模块、16周交互学习日历及小显存可完成的LLM/Agent实践。">
+<title>LLM Atlas 3.0 | 16周计划与论文目录对齐</title>
+<style>
+:root {
+  --ink:#17243d;--ink-soft:#253650;--text:#1e2e43;--muted:#6e7b8d;--muted2:#95a0ae;
+  --canvas:#f6f7f9;--paper:#fff;--line:#e7eaf0;--blue:#4166d8;--blue-deep:#2c4cbb;
+  --aqua:#238d88;--soft-aqua:#edf9f6;--amber:#b87a43;--soft-amber:#fff6e9;
+  --lilac:#8264bc;--soft-lilac:#f5f1ff;--coral:#ca715f;
+  --shadow:0 12px 34px rgba(24,43,76,.035);--radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:25px}
+body{margin:0;background:var(--canvas);color:var(--text);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+button,input,select{font:inherit} button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #9db9ff;outline-offset:3px}
+button[disabled]{opacity:.5;cursor:not-allowed}
+::selection{background:#d8e9ff;color:#17376a}
+.shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:29px 18px 23px;background:#17243b;color:#eaf1fc;overflow-y:auto;z-index:10}
+.brand{display:flex;align-items:center;gap:11px;padding:5px 11px 27px;border-bottom:1px solid #ffffff1d}
+.brand-mark{height:40px;width:40px;border:1px solid #ffffff4d;border-radius:13px;position:relative;display:grid;place-items:center;background:#ffffff13;flex-shrink:0}
+.brand-mark:before,.brand-mark:after{content:"";display:block;position:absolute;width:8px;height:8px;background:#74ddd2;border-radius:50%;box-shadow:13px 8px 0 #b6a5ff,-10px 13px 0 #f0a886;transform:translate(-1px,-6px)}
+.brand-txt{font-weight:800;font-size:16px;letter-spacing:.4px;line-height:1.15}
+.brand-sub{font-size:10px;letter-spacing:1.3px;color:#9dacc5;margin-top:4px}
+.nav-group{padding:26px 8px 6px;font-size:10px;letter-spacing:1.8px;color:#90a1be;text-transform:uppercase}
+.sidebar nav{display:flex;flex-direction:column;gap:5px}
+.sidebar nav a{display:flex;align-items:center;gap:11px;color:#b9c7da;padding:11px 13px;border-radius:12px;font-size:13px;transition:background .2s,color .2s}
+.sidebar nav a:hover,.sidebar nav a.active{color:#fff;background:#ffffff13}
+.sidebar nav a.active{box-shadow:inset 3px 0 #73d6cb}
+.nav-number{font-size:10px;min-width:21px;text-align:center;opacity:.55;font-weight:750}
+.sidebar-foot{margin-top:auto;padding:17px 12px 0;border-top:1px solid #ffffff1d}
+.sidebar-foot .eyebrow{color:#95a6c2;font-size:10px;letter-spacing:1.3px;text-transform:uppercase}
+.sidebar-foot .value{font-size:23px;font-weight:780;margin-top:3px}
+.progress-track{height:6px;border-radius:99px;overflow:hidden;background:#ffffff1a;margin:11px 0}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#56b8d3,#74deaa);border-radius:inherit;transition:width .35s}
+.sidebar-foot p{font-size:11px;color:#aab9ce;margin:0}
+.content{min-width:0;max-width:1500px;width:100%;margin:auto;padding:29px clamp(20px,4vw,60px) 85px}
+.utility{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 1px;margin-bottom:20px}
+.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;text-transform:uppercase}
+.utility .crumb{color:#8793a3;font-size:12px;letter-spacing:.2px}
+.mini-actions{display:flex;gap:8px;flex-wrap:wrap}
+.small-btn,.plain-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);padding:8px 12px;font-size:12px;font-weight:650;transition:transform .15s,box-shadow .15s,border-color .15s}
+.small-btn:hover,.plain-btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px #162d4e10;border-color:#c9d5ea}
+.small-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.small-btn.ghost{background:transparent}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#192947 0%,#25365c 66%,#344b68 100%);color:#fff;border-radius:24px;padding:clamp(27px,4vw,50px);min-height:310px;isolation:isolate}
+.hero:before{content:"";position:absolute;right:-45px;top:-190px;width:560px;height:560px;border:1px solid #ffffff14;border-radius:50%;box-shadow:0 0 0 50px #ffffff07,0 0 0 112px #ffffff05;z-index:-1}
+.hero:after{content:"";position:absolute;right:8%;bottom:-140px;width:360px;height:360px;background:radial-gradient(circle,#51cbbc36,transparent 65%);z-index:-1}
+.hero .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #bad9ff3b;border-radius:100px;color:#d2e9fe;padding:6px 12px;font-size:11px;letter-spacing:.55px;background:#ffffff0c}
+.hero .dot{height:7px;width:7px;border-radius:50%;background:#7ae6c7;box-shadow:0 0 15px #7ae6c7}
+.hero h1{font-size:clamp(29px,3.5vw,51px);line-height:1.19;margin:27px 0 16px;letter-spacing:-1.2px;font-weight:800;max-width:780px}
+.hero h1 em{font-style:normal;color:#a7e8d8}
+.hero p{color:#c4d3e6;max-width:690px;line-height:1.85;margin:0 0 24px;font-size:14px}
+.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.hero-btn{border:1px solid #ffffff40;border-radius:12px;background:#fff;color:#203252;font-weight:750;padding:11px 17px;font-size:13px}
+.hero-btn.alt{background:#ffffff12;color:#f4f8fd}
+.hero-btn:hover{filter:brightness(.96)}
+.hero-note{font-size:11px;color:#b4c6dc;margin-top:20px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 20px;box-shadow:var(--shadow);min-width:0}
+.stat .num{font-size:26px;line-height:1.05;font-weight:850;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat .label{font-size:12px;color:var(--muted);margin-top:6px}
+.stat .tiny{font-size:10px;color:var(--muted2)}
+.section{margin-top:56px;scroll-margin-top:23px}
+.section-header{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:19px}
+.section-label{color:var(--aqua);font-weight:800;font-size:11px;letter-spacing:1.7px;text-transform:uppercase}
+.section h2{margin:6px 0 4px;font-size:clamp(22px,2.1vw,29px);letter-spacing:-.6px;color:var(--ink);line-height:1.35}
+.section-desc{margin:0;color:var(--muted);font-size:13px;max-width:770px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.map-panel{padding:20px 20px 16px}
+.map-legend{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.legend-list{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.legend-dot{width:7px;height:7px;display:inline-block;background:var(--blue);border-radius:50%;margin-right:5px}
+.legend-dot.amber{background:var(--amber)}
+.legend-dot.aqua{background:var(--aqua)}
+.graph-scroller{width:100%;overflow:auto;padding-bottom:4px}
+.graph-canvas{position:relative;min-width:910px;width:100%;height:615px;margin:8px auto 0;background:radial-gradient(#dbe2ed 0.8px,transparent .8px);background-size:21px 21px;border-radius:14px}
+.graph-canvas:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff7,#fff0 15%,#fff0 85%,#fff7);pointer-events:none}
+#graphLines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.graph-node{position:absolute;width:220px;min-height:96px;transform:translateX(-50%);z-index:2;text-align:left;border:1px solid #dfe6ee;border-radius:15px;background:#fff;padding:13px 15px;box-shadow:0 7px 20px #29476b0d;transition:box-shadow .15s,border-color .15s,transform .15s}
+.graph-node:hover{transform:translate(-50%,-3px);box-shadow:0 11px 25px #29476b24}
+.graph-node .node-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted2);font-size:10px;font-weight:750;letter-spacing:.65px}
+.graph-node .node-name{font-size:14px;font-weight:780;color:var(--ink);margin-top:5px;line-height:1.45}
+.graph-node .node-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.graph-node[data-stage="持续改进"]{border-color:#d9c3ac;background:#fffbf4}
+.graph-node[data-stage="信息管理"]{border-color:#c6e2e0}
+.graph-node[data-stage="验证与治理"]{border-style:dashed;border-color:#c5c3dd}
+.graph-node.selected{border:2px solid var(--blue);padding:12px 14px;box-shadow:0 10px 26px #4269d124}
+.graph-node.dim{opacity:.32}
+.graph-edge{fill:none;stroke:#bfcbda;stroke-width:1.65;stroke-linecap:round;opacity:.67}
+.graph-edge.hi{stroke:var(--blue);stroke-width:2.6;opacity:1}
+.graph-edge.dim{opacity:.11}
+.graph-info{margin-top:13px;display:grid;grid-template-columns:1.2fr .85fr;gap:20px;padding:16px 17px;border:1px solid var(--line);border-radius:14px;background:#f9fafc}
+.graph-info h3{font-size:15px;margin:2px 0 6px;color:var(--ink)}
+.graph-info p{font-size:12px;margin:0;color:var(--muted);line-height:1.8}
+.graph-info .go-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--blue);border:0;background:none;padding:5px 0;font-weight:750;margin-top:7px}
+.graph-info .keylabel{font-size:10px;color:#8591a3;letter-spacing:.9px}
+.graph-info .keyvalue{font-size:12px;color:var(--ink);margin-top:4px}
+.timeline-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:0 0 14px}
+.control-box{display:flex;flex-direction:column;gap:5px}
+.control-box label{font-size:11px;color:var(--muted);font-weight:700}
+.control-box input,.control-box select{height:41px;padding:7px 12px;border-radius:11px;border:1px solid #dce2eb;background:#fff;color:var(--ink);font-size:13px;min-width:136px}
+.control-box input[type="number"]{min-width:90px;width:102px}
+.control-box.grow{flex:1;min-width:180px}
+.control-check{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--text);font-weight:650;margin-bottom:10px}
+input[type="checkbox"]{accent-color:var(--blue);width:15px;height:15px}
+.flex-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.plan-hint{border:1px solid #dce7e5;border-radius:14px;padding:14px 17px;background:var(--soft-aqua);color:#3d6865;font-size:12px;line-height:1.75;margin-bottom:17px}
+.week-list{display:flex;flex-direction:column;gap:12px}
+.week-card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);overflow:hidden}
+.week-card.current{border-color:#9cc9c1;box-shadow:0 0 0 3px #2c9b8710}
+.week-head{width:100%;background:#fff;border:0;display:flex;align-items:center;gap:15px;text-align:left;padding:16px 20px;color:var(--ink)}
+.week-head:hover{background:#fbfcff}
+.week-index{width:48px;height:49px;border-radius:12px;background:#eef2f9;display:grid;place-items:center;flex-shrink:0;text-align:center;line-height:1.2}
+.week-index strong{font-size:17px}
+.week-index span{display:block;font-size:8px;letter-spacing:.7px;color:#7b8ca6}
+.week-main{flex:1;min-width:0}
+.week-main .meta{font-size:11px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.week-main h3{font-size:15px;margin:2px 0 3px;color:var(--ink);line-height:1.4}
+.week-main .subtitle{font-size:12px;color:var(--muted);line-height:1.55}
+.week-right{text-align:right;min-width:103px;color:var(--muted);font-size:11px}
+.week-right b{display:block;color:var(--text);font-size:12px}
+.week-chevron{font-size:17px;color:#9caabe;transform:rotate(0);transition:transform .18s}
+.week-card.open .week-chevron{transform:rotate(180deg)}
+.week-body{padding:0 20px 20px 83px}
+.week-body-inner{border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.2fr);gap:23px}
+.week-subheading{display:flex;align-items:center;justify-content:space-between;font-weight:760;font-size:12px;color:var(--ink);margin-bottom:10px}
+.week-papers{display:flex;flex-direction:column;gap:8px}
+.week-paper{display:grid;grid-template-columns:18px minmax(0,1fr) 15px;gap:7px;align-items:start;padding:8px 9px;border:1px solid #edf0f4;border-radius:9px;background:#fcfdff}
+.week-paper a{font-size:11px;line-height:1.45;color:var(--ink-soft);overflow-wrap:anywhere}
+.week-paper a:hover{color:var(--blue);text-decoration:underline}
+.week-paper .year{font-size:9px;color:#8493a7}
+.week-paper input{margin-top:2px}
+.project-box{background:#f7f9fc;border:1px solid #e8edf3;border-radius:13px;padding:16px}
+.project-box h4{font-size:15px;margin:0 0 7px;line-height:1.4;color:var(--ink)}
+.project-box p{margin:0;color:var(--muted);font-size:11px}
+.project-box .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 10px}
+.tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:7px;background:#edf0f5;color:#54647b;font-size:10px;font-weight:650;white-space:normal}
+.tag.blue{color:#2e58a6;background:#e9effe}.tag.green{color:#227367;background:#e9f7f2}.tag.orange{color:#986831;background:#fff1de}
+.project-steps{font-size:12px;line-height:1.7;color:#4b5a6f;margin:10px 0;padding-left:19px}
+.project-steps li{margin:5px 0}
+.project-detail{font-size:11px;color:#52657c;line-height:1.7;margin-top:10px}
+.project-detail b{color:#26384f}
+.project-detail.optional{border-left:3px solid #d9b07d;padding:7px 10px;background:#fffaf0;border-radius:0 7px 7px 0}
+.project-done{display:flex;align-items:center;gap:8px;border-top:1px solid #e3e9f2;padding-top:12px;margin-top:12px;color:#2b685f;font-size:12px;font-weight:760}
+.library-controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:200px}
+.search-wrap input{width:100%;border:1px solid var(--line);border-radius:12px;height:44px;padding:8px 14px 8px 39px;background:#fff;color:var(--ink);font-size:12px}
+.search-wrap:before{content:"⌕";position:absolute;left:14px;top:6px;font-size:23px;color:#9daabd}
+.library-controls select{border:1px solid var(--line);border-radius:11px;height:44px;background:#fff;color:var(--text);font-size:12px;padding:0 10px;min-width:112px}
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.filter-tab{padding:8px 11px;border:1px solid #e1e6ed;border-radius:9px;background:#fff;color:#53647b;font-size:11px;font-weight:700}
+.filter-tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.library-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;color:var(--muted);font-size:11px}
+.paper-groups{display:flex;flex-direction:column;gap:13px}
+.paper-group{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+.group-header{background:#fcfdff;padding:13px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.group-header b{color:var(--ink);font-size:13px}
+.group-header small{color:var(--muted);font-size:11px;margin-left:auto}
+.module-chip{background:#eaf0fa;color:#3654a0;font-weight:850;font-size:10px;padding:4px 7px;border-radius:7px}
+.paper-item{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:11px;align-items:start;padding:14px 18px;border-bottom:1px solid #eff1f5}
+.paper-item:last-child{border-bottom:0}
+.paper-check{margin-top:3px}
+.paper-title{display:flex;align-items:center;flex-wrap:wrap;gap:6px;color:var(--ink);font-size:12px;font-weight:750;line-height:1.5}
+.paper-title a:hover{text-decoration:underline;color:var(--blue)}
+.paper-why{font-size:11px;color:var(--muted);line-height:1.65;margin-top:3px}
+.paper-side{display:flex;flex-direction:column;gap:4px;align-items:flex-end;color:#90a0b0;font-size:10px;min-width:59px}
+.paper-link{display:inline-flex;align-items:center;gap:3px;color:var(--blue);font-size:11px;font-weight:700}
+.paper-link:hover{text-decoration:underline}
+.focus-mark{background:#f2effe;color:#7255b7;padding:2px 6px;font-size:9px;font-weight:800;border-radius:6px}
+.level-mark{color:#507185;background:#eaf3f5;padding:2px 6px;font-size:9px;font-weight:780;border-radius:6px}
+.level-mark.deep{color:#a06728;background:#fff2e5}
+.level-mark.expand{color:#758292;background:#f0f2f5}
+.empty-state{padding:50px 20px;text-align:center;background:#fff;border:1px dashed #cdd7e4;border-radius:15px;color:var(--muted)}
+.equipment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.equipment{padding:19px;position:relative}
+.equipment .labeltop{font-size:10px;font-weight:850;letter-spacing:1.4px;color:var(--muted)}
+.equipment h3{font-size:17px;color:var(--ink);margin:6px 0 2px}
+.equipment .memory{font-weight:800;color:var(--aqua);font-size:12px}
+.equipment p{font-size:12px;color:var(--muted);line-height:1.7;margin:11px 0 12px}
+.equipment ul{margin:0;padding-left:19px;color:#506175;font-size:11px;line-height:1.9}
+.equipment.featured{border-color:#bfd7d3;background:linear-gradient(#fff,#f7fcfb)}
+.notice{display:flex;gap:12px;align-items:flex-start;background:#fff9ed;border:1px solid #f0dfbe;border-radius:14px;padding:15px 17px;margin-top:15px;color:#755937;font-size:12px;line-height:1.75}
+.notice b{color:#624b28}
+.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.resource-box{min-width:0}
+.resource-box{padding:20px}
+.resource-box h3{font-size:14px;color:var(--ink);margin:0 0 11px}
+.resource-box p{font-size:12px;color:var(--muted);margin:0 0 9px}
+.source-link{display:block;font-size:12px;color:var(--blue);padding:7px 0;border-bottom:1px solid #edf1f5;overflow-wrap:anywhere}
+.source-link:last-child{border-bottom:0}
+.source-link:hover{text-decoration:underline}
+.code-snippet{position:relative;background:#1b2a43;border-radius:13px;padding:18px 16px;color:#d6e9fa;overflow:auto;font:12px/1.9 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+.copy-code{border:1px solid #526783;background:#2d405e;color:#e8f1fd;border-radius:7px;padding:4px 8px;font-size:11px;margin-top:11px;cursor:pointer}
+.copy-code:hover{background:#415a7c}
+.footer{text-align:center;color:#8792a3;font-size:11px;margin-top:59px;line-height:1.9}
+.footer b{color:#475c77}
+.toast{position:fixed;bottom:25px;right:25px;background:#1d334d;color:#fff;padding:11px 16px;font-size:12px;font-weight:700;border-radius:11px;box-shadow:0 12px 25px #1020342f;z-index:99;opacity:0;transform:translateY(8px);pointer-events:none;transition:all .2s}
+.toast.show{opacity:1;transform:translateY(0)}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1130px){
+ .shell{grid-template-columns:218px minmax(0,1fr)}.content{padding:25px 24px 70px}
+ .week-body-inner{grid-template-columns:1fr}.equipment-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+ .shell{display:block}.sidebar{position:relative;height:auto;overflow:visible;padding:12px 14px 9px}
+ .brand{padding:3px 4px 10px}.sidebar .nav-group,.sidebar-foot{display:none}
+ .sidebar nav{flex-direction:row;overflow-x:auto;gap:5px;padding:9px 0 0}
+ .sidebar nav a{white-space:nowrap;font-size:11px;padding:7px 10px}.nav-number{display:none}
+ .content{padding:16px 13px 55px}.utility{margin-bottom:12px}.utility .crumb{display:none}
+ .hero{border-radius:17px;padding:28px 22px}.hero h1{font-size:32px}.hero p{font-size:12px}
+ .stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{padding:15px}
+ .section{margin-top:39px}.section-header{align-items:start;flex-direction:column;gap:7px}
+ .map-panel{padding:13px}.graph-info{grid-template-columns:1fr}
+ .week-head{padding:12px;gap:9px}.week-index{width:40px;height:42px}.week-main h3{font-size:13px}.week-main .subtitle{display:none}
+ .week-right{min-width:69px}.week-body{padding:0 13px 17px 13px}.week-body-inner{gap:16px}
+ .equipment-grid,.resource-grid{grid-template-columns:minmax(0,1fr)}.paper-item{padding:12px;gap:8px}
+ .paper-side{min-width:45px}.week-paper a{font-size:11px}.section h2{font-size:24px}
+}
+@media print{
+ .sidebar,.utility,.hero-buttons,.filter-tabs,.library-controls,.small-btn,.plain-btn,.copy-code,.footer{display:none!important}
+ body{background:#fff}.shell{display:block}.content{max-width:none;padding:0}.hero{color:#111;background:#fff;border:1px solid #ddd}.hero h1,.hero h1 em{color:#111}
+ .panel,.week-card,.paper-group{box-shadow:none;break-inside:avoid}
+ .section{margin-top:25px}.graph-scroller{overflow:visible}.graph-canvas{min-width:0;transform:scale(.76);transform-origin:top left;margin-bottom:-130px}
+}
+
+/* V2: a second, lifecycle-based knowledge navigation */
+.lifecycle-panel{padding:23px 22px}
+.life-intro{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.life-small{font-size:11px;color:#8794a3;letter-spacing:.2px}
+.life-flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.life-step{position:relative;min-height:142px;min-width:0;text-align:left;border:1px solid #e0e7ed;
+  background:linear-gradient(180deg,#fbfcff,#f7f9fc);border-radius:14px;padding:16px 12px 13px;color:var(--ink);
+  transition:transform .15s,background .15s,border-color .15s;cursor:pointer}
+.life-step:hover{transform:translateY(-3px);border-color:#b3c6e3}
+.life-step.on{background:#eef5fd;border-color:#789fdd;box-shadow:0 7px 18px #4e6f9c16}
+.life-step .index{font:750 10px/1.4 ui-monospace,Menlo,monospace;color:#8292a4;letter-spacing:.4px}
+.life-step h3{font-size:13px;line-height:1.38;margin:12px 0 7px;letter-spacing:-.2px}
+.life-step p{font-size:10px;line-height:1.6;color:var(--muted);margin:0}
+.life-step:after{content:"›";position:absolute;right:-10px;top:42%;z-index:1;color:#8da4bb;font-size:19px;font-weight:700;pointer-events:none}
+.life-step:last-child:after{display:none}
+.crosscuts{display:flex;gap:8px;align-items:stretch;margin:15px 0;flex-wrap:wrap}
+.crosscut{display:flex;align-items:center;gap:10px;flex:1;min-width:175px;border:1px solid #dae9e8;border-radius:10px;
+  background:#f6faf9;padding:11px 13px;text-align:left;color:#285a5b}
+.crosscut:hover{background:#eef6f5}
+.crosscut .cross-name{font-size:9px;font-weight:800;letter-spacing:.7px}
+.crosscut .cross-label{font-size:11px;line-height:1.5}
+.life-detail{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;border:1px solid #e8ebf3;border-radius:13px;background:#f9fbfe;padding:16px 18px}
+.life-detail h3{font-size:15px;line-height:1.4;margin:4px 0 7px;color:var(--ink)}
+.life-detail .muted{color:var(--muted);font-size:11px;line-height:1.8;margin:0}
+.life-detail .life-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.priority-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.priority-card{padding:16px 17px;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;gap:8px}
+.priority-card b{font-size:12px;line-height:1.55;color:var(--ink)}
+.priority-card>span:last-child{font-size:11px;color:var(--muted)}
+.priority-pill{display:inline-flex;font-weight:850;border-radius:7px;padding:3px 9px;font-size:10px;align-self:flex-start}
+.priority-pill.p0{color:#216f69;background:#e7f7f2}
+.priority-pill.p1{color:#4364a0;background:#ecf1ff}
+.priority-pill.p2{color:#a27b46;background:#fff4e5}
+.graph-canvas{min-width:1210px;height:670px}
+.graph-node{width:204px;min-height:95px;padding:11px 13px}
+.graph-node.selected{padding:10px 12px}
+.graph-node[data-stage="安全横切"]{background:#f9f7ff;border-color:#e1d7ee}
+.graph-node[data-stage="系统工程"]{border-color:#d0dfec}
+.graph-node[data-stage="拓展路径"]{border-style:dashed}
+.graph-node .node-name{font-size:13px}
+.week-timeline{padding:12px 14px;background:#f8fbff;border:1px solid #e4edf8;border-radius:11px;margin:11px 0 14px}
+.week-timeline h5{font-size:11px;margin:0 0 9px;color:#35577a}
+.day-mark{display:grid;grid-template-columns:75px minmax(0,1fr);gap:10px;padding:5px 0;color:#506178;font-size:11px}
+.day-mark .day-num{font-size:10px;color:#467e91;font-weight:750}
+.core-flag{display:inline-flex;color:#8a6433;background:#fff2d8;padding:2px 6px;border-radius:5px;font-size:9px;font-weight:750;margin-right:5px}
+.level-tag{font-size:10px;color:#7c8da5;margin-left:3px}
+.legacy-note{display:flex;gap:8px;align-items:center;color:#727b89;font-size:11px;margin-top:11px}
+@media(max-width:1280px){.life-flow{grid-template-columns:repeat(3,minmax(0,1fr))}.life-step:after{display:none}}
+@media(max-width:760px){
+ .life-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .life-step{min-height:118px}.life-detail{grid-template-columns:minmax(0,1fr)}
+ .priority-summary{grid-template-columns:minmax(0,1fr)}.lifecycle-panel{padding:14px}
+ .crosscuts{flex-direction:column}.crosscut{width:100%}
+}
+
+
+/* V3: one canonical paper title per entry, bidirectional weekly catalog navigation */
+.paper-jumpbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:12px 13px;margin:0 0 13px;
+ border:1px solid #e5ebf3;background:#fff;border-radius:13px}
+.paper-jumpbar:empty{display:none}
+.paper-jump-label{font-size:10px;font-weight:800;color:#6a7e98;letter-spacing:.5px;margin-right:4px}
+.paper-jump-chip{border:1px solid #dce5ef;background:#f7f9fd;border-radius:8px;padding:5px 8px;
+ color:#334b69;font-size:10px;font-weight:750}
+.paper-jump-chip small{font-size:9px;color:#8193ac}
+.paper-jump-chip:hover{background:#eaf1fe;border-color:#adc0e1}
+.paper-crossref{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:10px;color:#71849b;margin-top:6px}
+.paper-crossref b{font-weight:850;letter-spacing:.3px;color:#48648f}
+.exact-paper-title{overflow-wrap:anywhere}
+.week-paper .exact-paper-title{font-weight:720}
+.jump-paper{margin-left:6px;border:0;background:transparent;color:#4263ab;
+ cursor:pointer;font-size:10px;text-decoration:underline;text-underline-offset:2px;padding:1px 3px}
+.jump-paper:hover{color:#1a3a78}
+.review-flag{display:inline-flex;background:#edf4fc;color:#4166a6;font-weight:800;
+ border-radius:5px;font-size:9px;padding:2px 5px;margin-right:4px}
+.paper-focus{animation:focusGlow 2.4s ease-out 1;border-left:4px solid #4166d8;background:#f4f8ff}
+@keyframes focusGlow{0%{background:#dfeeff}45%{background:#edf5ff}100%{background:#fff}}
+.paper-group{scroll-margin-top:20px}
+.paper-link[data-visit-week]{border:0;background:transparent;padding:2px;cursor:pointer;white-space:nowrap}
+.paper-item .paper-side{min-width:80px}
+@media(max-width:760px){
+ .paper-jumpbar{gap:5px;padding:10px}
+ .paper-jump-chip{font-size:10px;padding:5px 7px}
+ .paper-item{grid-template-columns:18px minmax(0,1fr);gap:7px}
+ .paper-item .paper-side{grid-column:2;flex-direction:row;align-items:center;gap:12px;margin-top:2px}
+ .week-paper{grid-template-columns:18px minmax(0,1fr);gap:7px}
+ .week-paper>span:last-child{display:none}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="#overview" class="brand" aria-label="回到首页">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div><div class="brand-txt">LLM ATLAS</div><div class="brand-sub">LIFECYCLE EDITION · V3</div></div>
+    </a>
+    <div class="nav-group">Navigation</div>
+    <nav aria-label="章节导航">
+      <a class="active" href="#overview"><span class="nav-number">00</span>课程概览</a>
+      <a href="#lifecycle"><span class="nav-number">01</span>完整生命周期</a>
+      <a href="#map"><span class="nav-number">02</span>知识依赖图谱</a>
+      <a href="#plan"><span class="nav-number">03</span>16 周学习日历</a>
+      <a href="#papers"><span class="nav-number">04</span>137 篇论文资料库</a>
+      <a href="#hardware"><span class="nav-number">05</span>设备与实验策略</a>
+      <a href="#resources"><span class="nav-number">06</span>资源与导出</a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="eyebrow">Your reading progress</div>
+      <div class="value" id="sideProgress">0 <span style="font-size:12px;color:#93a7c0">/ 137</span></div>
+      <div class="progress-track"><div class="progress-fill" id="sideBar"></div></div>
+      <p id="sideProjects">项目：0 / 16 已完成</p>
+    </div>
+  </aside>
+  <main class="content">
+    <div class="utility">
+      <div class="crumb">THE SELF-STUDY EDITION &nbsp;/&nbsp; RESEARCH ENGINEERING</div>
+      <div class="mini-actions">
+        <button class="small-btn" id="saveStateTop" type="button">↗ 导出进度</button>
+        <button class="small-btn primary" id="goCurrent" type="button">查看当前周 ↗</button>
+      </div>
+    </div>
+
+    <section id="overview" class="hero">
+      <div class="pill"><span class="dot"></span> SYSTEMATIC LEARNING PATH · 自主学习工作台</div>
+      <h1>从数据与 Transformer<br>到 <em>Agent 与自我进化</em></h1>
+      <p>不仅是论文目录：新增数据治理、训练系统、推理部署、音视频多模态、Agent工程、安全和持续学习，以模型完整生命周期串联知识图谱。每个阶段都能用小显存做实际验证。</p>
+      <div class="hero-buttons">
+        <button class="hero-btn" type="button" onclick="document.getElementById('plan').scrollIntoView({behavior:'smooth'})">开始学习计划 ↗</button>
+        <button class="hero-btn alt" type="button" onclick="document.getElementById('lifecycle').scrollIntoView({behavior:'smooth'})">查看生命周期 →</button>
+      </div>
+      <div class="hero-note">默认从打开文件当天开始 · 可改日期 · 完成状态自动保存在当前浏览器</div>
+    </section>
+
+    <div class="stat-grid" aria-label="课程总览统计">
+      <div class="stat"><div class="num">137</div><div class="label">论文 / 研究报告</div><div class="tiny">含 GPT 技术报告与综述</div></div>
+      <div class="stat"><div class="num">20</div><div class="label">知识模块</div><div class="tiny">8 个方向升级 · 贯穿安全与评测</div></div>
+      <div class="stat"><div class="num">18</div><div class="label">第一轮精读核心</div><div class="tiny">帮助建立主干认知</div></div>
+      <div class="stat"><div class="num">16</div><div class="label">可执行小项目</div><div class="tiny">全部提供本地降级方案</div></div>
+    </div>
+
+
+    <section class="section" id="lifecycle">
+      <div class="section-header">
+        <div><div class="section-label">01 · End-to-end LLM lifecycle</div>
+          <h2>模型完整生命周期 · 从数据走到自我改进</h2>
+          <p class="section-desc">纵向知识图谱告诉你“学什么”，横向生命周期告诉你“这些技术如何组成一个持续运行的系统”。点击阶段查看关键模块、对应周次和项目交付物。</p>
+        </div>
+      </div>
+      <div class="panel lifecycle-panel">
+        <div class="life-intro">
+          <span class="tag green">贯穿全部课程 · 主线路径</span>
+          <span class="life-small">数据 → 预训练 → 后训练 → 推理服务 → 感知与行动 → 反馈与改进</span>
+        </div>
+        <div class="life-flow" id="lifeFlow" role="group" aria-label="模型生命周期阶段"></div>
+        <div class="crosscuts" id="crosscuts" aria-label="多模态、安全和评测的横向方向"></div>
+        <div class="life-detail" id="lifeDetail" aria-live="polite"></div>
+      </div>
+      <div class="priority-summary" aria-label="新研究领域的优先级">
+        <div class="priority-card"><span class="priority-pill p0">P0 · 必补</span><b>Tokenization / 数据 · 训练机制 · 多模态</b><span>建立完整模型生命周期的关键基础</span></div>
+        <div class="priority-card"><span class="priority-pill p1">P1 · 重点</span><b>推理部署 · Agent 工程 · 安全 · 持续学习</b><span>让 Agent 可执行、可评价、可更新</span></div>
+        <div class="priority-card"><span class="priority-pill p2">P2 · 拓展</span><b>Mamba / SSM · World Models / 具身</b><span>研究方向确定后再选择性深入</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="section-header">
+        <div><div class="section-label">02 · Knowledge architecture</div><h2>知识图谱 · 20 个相互关联的模块</h2>
+        <p class="section-desc">点击节点查看研究问题、代表论文和实践方向。连线表示建议理解的知识依赖，不代表严格唯一的学习顺序。</p></div>
+        <button type="button" class="small-btn ghost" id="resetGraph">重置聚焦 ↺</button>
+      </div>
+      <div class="panel map-panel">
+        <div class="map-legend">
+          <div class="legend-list"><span><i class="legend-dot"></i>基础与能力</span><span><i class="legend-dot aqua"></i>知识与行动</span><span><i class="legend-dot amber"></i>RSI 前沿</span><span>13–20 为新增模块</span></div>
+          <span>可横向滚动 · 点击节点高亮关联</span>
+        </div>
+        <div class="graph-scroller" role="region" aria-label="可滚动的知识图谱" tabindex="0">
+          <div class="graph-canvas" id="graphCanvas">
+            <svg id="graphLines" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrowEdge" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#a9b8c9" stroke-width="1.1"/></marker></defs></svg>
+            <div id="graphNodes"></div>
+          </div>
+        </div>
+        <div class="graph-info" id="graphInfo" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="section-header">
+        <div><div class="section-label">03 · Learning calendar</div><h2>16 周学习计划 · 日期随你调整</h2>
+        <p class="section-desc">每周都有明确的重点阅读、可复现实验和验收标准。只需本地显卡即可完成必做部分，A40 仅作为授权且空闲时的选做资源。</p></div>
+      </div>
+      <div class="timeline-controls">
+        <div class="control-box"><label for="startDate">开始日期</label><input id="startDate" type="date"></div>
+        <div class="control-box"><label for="hoursPerWeek">每周可投入</label>
+          <select id="hoursPerWeek"><option value="4">4 小时 · 轻量</option><option value="6">6 小时 · 均衡</option><option value="8">8 小时 · 推荐</option><option value="12">12 小时 · 深入</option></select>
+        </div>
+        <div class="control-box"><label for="hardwareMode">实验资源</label>
+          <select id="hardwareMode"><option value="local">仅本地 RTX 5060</option><option value="a40">本地 + 可借用 1 张 A40</option></select>
+        </div>
+        <div class="control-box grow">
+          <label>时间和进度管理</label>
+          <div class="flex-actions">
+            <button class="small-btn" id="calendarExport" type="button">导出 16 周里程碑 .ics</button>
+            <button class="small-btn" id="planExport" type="button">复制计划</button>
+          </div>
+        </div>
+      </div>
+      <div class="plan-hint" id="planHint"></div>
+      <div class="week-list" id="weekList"></div>
+    </section>
+
+    <section class="section" id="papers">
+      <div class="section-header">
+        <div><div class="section-label">04 · Paper library</div><h2>16 周文献对照目录 · 137 篇完整资料</h2>
+        <p class="section-desc">论文标题与 16 周阅读计划完全一致。默认按周次排列：73 篇进入正式课程、64 篇为扩展阅读；重复安排的论文标注复习周次，但只计数一次。也可以按知识模块检索。</p></div>
+      </div>
+      <div class="library-controls">
+        <div class="search-wrap"><label class="visually-hidden" for="paperSearch">搜索论文</label><input id="paperSearch" type="search" placeholder="搜索论文标题、模块、年份或知识点…"></div>
+        <select id="libraryView" aria-label="论文目录排列方式">
+          <option value="week">按 16 周课程排列</option><option value="module">按 20 个知识模块排列</option>
+        </select>
+        <select id="moduleFilter" aria-label="按知识模块筛选"><option value="all">全部模块</option></select>
+        <select id="priorityFilter" aria-label="按研究优先级筛选"><option value="all">全部优先级</option><option value="P0">P0 必补</option><option value="P1">P1 重点</option><option value="P2">P2 拓展</option></select>
+        <select id="levelFilter" aria-label="按阅读级别筛选"><option value="all">全部级别</option><option value="精读">精读</option><option value="必读">必读</option><option value="拓展">拓展</option></select>
+      </div>
+      <div class="filter-tabs" aria-label="快速筛选">
+        <button type="button" class="filter-tab on" data-preset="all">全部文献</button>
+        <button type="button" class="filter-tab" data-preset="focus">⭐ 核心 18 篇</button>
+        <button type="button" class="filter-tab" data-preset="new">✨ 新增54篇</button>
+        <button type="button" class="filter-tab" data-preset="unread">仅看未读</button>
+        <button type="button" class="filter-tab" data-preset="read">已读归档</button>
+      </div>
+      <div class="library-meta"><span id="paperResults">16 周课程 + 拓展阅读</span><span id="paperReadRate">已读 0 / 137</span></div>
+      <div class="paper-jumpbar" id="paperJumpbar" aria-label="跳转到周次对应文献"></div>
+      <div id="paperGroups" class="paper-groups"></div>
+    </section>
+
+    <section class="section" id="hardware">
+      <div class="section-header">
+        <div><div class="section-label">05 · Feasible experiments</div><h2>按你的算力规划，而不是按论文规模训练</h2>
+        <p class="section-desc">以下显存范围是保守的实践预算，不是正式 Benchmark 或显存保证值；实际峰值会受模型精度、上下文长度、CUDA/PyTorch 版本与并发程序影响。</p></div>
+      </div>
+      <div class="equipment-grid">
+        <div class="panel equipment">
+          <div class="labeltop">LEVEL 00 · BASELINE</div>
+          <h3>CPU / 小模型</h3><div class="memory">不占用服务器 GPU</div>
+          <p>优先验证研究想法、数据流程与评测逻辑；不是每项实验都必须上大模型。</p>
+          <ul><li>0.3M–5M 参数 MiniGPT</li><li>BM25、SQLite、FTS5、规则 Verifier</li><li>轻量 Embedding 与离线对照实验</li></ul>
+        </div>
+        <div class="panel equipment featured">
+          <div class="labeltop">LEVEL 01 · DEFAULT</div>
+          <h3>RTX 5060 · 本地主力</h3><div class="memory">8GB 物理显存 · 建议留出余量</div>
+          <p>以 0.6B–1.7B Qwen3 系列为主；量化推理优先 4-bit，避免默认用 7B/8B 长上下文。</p>
+          <ul><li>0.6B 微调：短序列 LoRA，microbatch 1</li><li>1.7B Q4：RAG、Agent、Memory、Self-Refine</li><li>上下文先用 1K–4K Token，小批量跑评测</li></ul>
+        </div>
+        <div class="panel equipment">
+          <div class="labeltop">LEVEL 02 · STRICTLY OPTIONAL</div>
+          <h3>共享服务器 · 单张 A40</h3><div class="memory">单卡 48GB · 非独占资源</div>
+          <p>不把 5 张卡当作你的可用配额；仅在与同事协调并确认空闲后，选择 1 张卡短时实验。</p>
+          <ul><li>选做 1.7B–3B QLoRA 或 0.6B 教学式 RL</li><li>尽量把自己程序的目标显存预算控制在约 16GB 以内</li><li>可中断、能恢复、设置运行时限</li></ul>
+        </div>
+      </div>
+      <div class="notice">
+        <span style="font-size:18px" aria-hidden="true">⚑</span>
+        <div><b>共享资源保护原则：</b>每次先查看 <code>nvidia-smi</code>、确认 GPU 使用许可和空闲显存；不抢占具身实验、不开多卡训练、不默认占满单卡 48GB。配置内存目标不等于硬性显存隔离，不能只依赖环境变量或 PyTorch 分配器保证不干扰别人。</div>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="section-header">
+        <div><div class="section-label">06 · Research workflow</div><h2>环境起步、资料来源与备份</h2>
+        <p class="section-desc">HTML 无需外部 JS/CDN，离线可打开；论文链接需要联网。此版本是全新学习计划，不读取以前版本的进度。勾选记录仅在当前浏览器保存，请定期导出 JSON。</p></div>
+      </div>
+      <div class="resource-grid">
+        <div class="panel resource-box">
+          <h3>一套轻量的起步环境</h3>
+          <p>PyTorch / PEFT 环境按 NVIDIA 驱动和 CUDA 版本单独安装；下面只列常用实验工具，避免一次性安装所有大框架。</p>
+          <div class="code-snippet" id="installSnippet"># 先检查显卡与空闲显存
+nvidia-smi
+
+# PyTorch 请按官网选择与你驱动兼容的 CUDA 构建
+# 以下工具按需要分批安装
+pip install transformers datasets accelerate peft
+pip install tokenizers scikit-learn rank-bm25
+pip install sentence-transformers opencv-python-headless
+
+# W11 可按需单独安装 Whisper tiny / CLIP 等
+# 训练前先小批量检查 CUDA / 量化框架兼容性
+
+# 本地小模型推理也可使用 Ollama / llama.cpp
+# 示例模型：Qwen3-0.6B、Qwen3-1.7B (Q4)</div>
+          <button class="copy-code" id="copySetup" type="button">复制环境提示</button>
+        </div>
+        <div class="panel resource-box">
+          <h3>硬件、模型和系统工程的官方资料</h3>
+          <p>核对显存与模型型号请以厂商说明、当前驱动状态和你实际运行的监控结果为准。</p>
+          <div id="officialSources"></div>
+          <div style="margin-top:15px;font-size:11px;color:#70819b">推荐阅读法：精读核心 18 篇 → 实践一个小实验 → 写出带失败分析的技术笔记。</div>
+        </div>
+        <div class="panel resource-box">
+          <h3>进度备份与恢复</h3>
+          <p>备份包含开始日期、每周投入小时、阅读勾选和项目完成状态，不会包含论文 PDF 或模型文件。</p>
+          <div class="flex-actions">
+            <button type="button" class="small-btn primary" id="exportBackup">下载学习进度 JSON</button>
+            <button type="button" class="small-btn" id="importBackup">导入备份</button>
+            <input type="file" id="importFile" accept=".json,application/json" class="visually-hidden">
+          </div>
+          <p style="margin-top:12px">注意：不同浏览器或通过不同路径打开此 HTML 时，勾选记录可能不互通，因此建议使用 JSON 定期备份。</p>
+        </div>
+        <div class="panel resource-box">
+          <h3>每周读论文的四个问题</h3>
+          <p>即使只花 30–60 分钟泛读一篇，也尽量写下下面四项：</p>
+          <ol style="font-size:12px;line-height:2;padding-left:19px;margin:0;color:#506175">
+            <li>它解决的核心问题是什么？</li><li>它改进的是模型参数、Prompt、工具还是系统？</li>
+            <li>实验是否真的支持作者的结论？</li><li>如果缩小到 0.6B–1.7B，我能复现哪一个机制？</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Made for deliberate learning · <b>LLM ATLAS</b> · 2026<br>
+      学习计划 V3 · 全部必做项目以 RTX 5060 8GB 可执行为目标，A40 仅可选；显存与性能受环境影响，非保证值。</div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="atlas-data" type="application/json">{"meta":{"title":"LLM Atlas 3.0 · 16周计划与文献目录对齐版","version":"3.0","created":"2026-11-11","weeks":16,"paperCount":137,"defaultLocalStart":"2026-11-10","gpuSources":[{"name":"NVIDIA GeForce RTX 5060 8GB 官方规格","url":"https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5060-family/"},{"name":"NVIDIA A40 48GB 官方规格","url":"https://www.nvidia.com/en-us/data-center/a40/"},{"name":"Qwen3 官方模型仓库","url":"https://github.com/QwenLM/Qwen3"},{"name":"Hugging Face · Tokenizer 与词表训练","url":"https://huggingface.co/docs/transformers/main/custom_tokenizers"},{"name":"PyTorch · Automatic Mixed Precision","url":"https://docs.pytorch.org/docs/stable/amp.html"},{"name":"PyTorch · Activation Checkpointing","url":"https://docs.pytorch.org/docs/stable/checkpoint.html"},{"name":"Model Context Protocol · 官方规范","url":"https://modelcontextprotocol.io/specification"},{"name":"vLLM · 推理服务文档（非必装）","url":"https://docs.vllm.ai/en/latest/"},{"name":"OWASP · LLM 应用安全项目","url":"https://owasp.org/www-project-top-10-for-large-language-model-applications/"}],"startHint":"打开当天默认开始，可选日期","localGPU":"RTX 5060 8GB","sharedGPU":"A40 48GB ×5（共享，单卡短时选做）"},"modules":[{"id":"01","name":"Transformer 基础","short":"Transformer","stage":"模型地基","desc":"注意力机制、编码器/解码器、自回归建模和基础架构。","question":"模型如何读入 Token、计算注意力并预测下一个 Token？","priority":"P0"},{"id":"02","name":"GPT 演进","short":"GPT Evolution","stage":"模型地基","desc":"从生成式预训练、Few-shot 到指令遵循和推理系统。","question":"GPT 的关键范式转变究竟发生在哪里？","priority":"P0"},{"id":"03","name":"Scaling 与架构优化","short":"Scaling & Systems","stage":"模型地基","desc":"计算最优训练、MoE、位置编码、KV Cache 和高效推理。","question":"数据、参数、算力与硬件约束如何共同决定模型设计？","priority":"P0"},{"id":"04","name":"Post-training 与对齐","short":"Post-training","stage":"能力训练","desc":"LoRA、SFT、RLHF、RLAIF、DPO 与合成指令。","question":"一个会续写文本的模型如何变成可用的助手？","priority":"P0"},{"id":"05","name":"Reasoning 与强化学习","short":"Reasoning","stage":"能力训练","desc":"CoT、搜索、验证器、Test-time Scaling、GRPO 和推理 RL。","question":"更强的问题求解能力来自哪里、如何评估？","priority":"P0"},{"id":"06","name":"Context Engineering","short":"Context","stage":"信息管理","desc":"长上下文、有效窗口、位置偏置和 Prompt 压缩。","question":"模型看得见的信息，是否都能被有效利用？","priority":"P0"},{"id":"07","name":"RAG 与外部检索","short":"RAG","stage":"信息管理","desc":"密集检索、动态检索、自我反思和 GraphRAG。","question":"什么时候应搜索外部知识，而不是依赖参数记忆？","priority":"P0"},{"id":"08","name":"Memory 与经验积累","short":"Memory","stage":"信息管理","desc":"情景记忆、长期记忆、虚拟上下文与跨会话评价。","question":"一个 Agent 如何有选择地记住、更新和忘记？","priority":"P0"},{"id":"09","name":"Agent 与 Tool Use","short":"Agent","stage":"行动系统","desc":"ReAct、工具学习、规划、环境反馈与软件工程 Agent。","question":"模型如何可靠地执行多步任务，而不只是回答问题？","priority":"P0"},{"id":"10","name":"RSI 与 Self-Improvement","short":"RSI","stage":"持续改进","desc":"自生成数据、程序改写、自适配权重与演化搜索。","question":"系统究竟改进了答案、记忆、程序还是自身模型？","priority":"P0"},{"id":"11","name":"Multimodal","short":"Multimodal","stage":"行动系统","desc":"图文对齐、多模态融合和视觉指令学习。","question":"模型如何将语言能力拓展到视觉与真实环境？","priority":"P0"},{"id":"12","name":"评测、安全与可解释性","short":"Evaluation","stage":"验证与治理","desc":"Benchmark、可靠性、鲁棒性和机制可解释性。","question":"我们如何知道一个系统真正变强且仍然可靠？","priority":"P0"},{"id":"13","name":"数据、Tokenization 与数据治理","short":"Data & Tokenization","stage":"模型地基","desc":"BPE/SentencePiece、去重、数据配比、质量过滤、合成数据与污染防控。","question":"模型学到的东西首先由哪些数据与切分方式决定？","priority":"P0"},{"id":"14","name":"优化器与训练系统","short":"Training Systems","stage":"模型地基","desc":"Adam、混合精度、梯度检查点、数值稳定性以及分布式训练基本原理。","question":"同一个模型为什么会训练不稳或耗尽显存？","priority":"P0"},{"id":"15","name":"推理系统与部署","short":"Inference Systems","stage":"系统工程","desc":"量化、Prefill/Decode、KV Cache、连续批处理、Speculative Decoding、时延与吞吐。","question":"模型训练完以后，如何以有限资源可靠服务？","priority":"P1"},{"id":"16","name":"Agent 系统工程","short":"Agent Engineering","stage":"行动系统","desc":"Workflow vs Agent、状态机、任务恢复、Trace、工具契约、多 Agent 和编排。","question":"演示型 Agent 如何变成可恢复、可观测的系统？","priority":"P1"},{"id":"17","name":"Agent 安全与 AI Security","short":"AI Security","stage":"安全横切","desc":"Prompt Injection、权限边界、不可信工具输出、数据泄漏与防护测试。","question":"如何让系统在遇到恶意外部信息时仍然遵守信任边界？","priority":"P1"},{"id":"18","name":"持续学习与知识更新","short":"Continual Learning","stage":"持续改进","desc":"灾难性遗忘、Replay、知识编辑、Model Unlearning 和增量更新。","question":"哪些改进真正改变了模型参数且不会破坏旧能力？","priority":"P1"},{"id":"19","name":"替代架构与 Hybrid 模型","short":"Alt. Architectures","stage":"拓展路径","desc":"State Space Models、Mamba 与 Transformer-SSM Hybrid。","question":"Attention 之外还有哪些序列建模途径？","priority":"P2"},{"id":"20","name":"世界模型与具身行动","short":"World Models","stage":"拓展路径","desc":"潜在环境状态、时间预测、Planning、VLA 与具身 Agent。","question":"一个系统如何预测环境变化并选择行动？","priority":"P2"}],"papers":[{"id":"P001","modules":["01"],"year":2014,"level":"拓展","title":"Neural Machine Translation by Jointly Learning to Align and Translate","url":"https://arxiv.org/abs/1409.0473","why":"理解 Attention 从编码器—解码器瓶颈中诞生的动机。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P002","modules":["01"],"year":2017,"level":"精读","title":"Attention Is All You Need","url":"https://arxiv.org/abs/1706.03762","why":"亲手推导 Q/K/V、Scaled Dot-Product Attention、Mask 与 Multi-Head。","focus18":true,"week":2,"new":false,"priority":"P0","weekCore":[2],"assignedWeeks":[2],"coreWeeks":[2]},{"id":"P003","modules":["01"],"year":2018,"level":"必读","title":"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding","url":"https://arxiv.org/abs/1810.04805","why":"对比 Encoder-only、双向注意力和 Masked LM。","focus18":false,"week":2,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[2],"coreWeeks":[]},{"id":"P004","modules":["01"],"year":2019,"level":"拓展","title":"Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer","url":"https://arxiv.org/abs/1910.10683","why":"理解 T5 的 Encoder-Decoder 与统一 text-to-text 思路。","focus18":false,"week":2,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[2],"coreWeeks":[]},{"id":"P005","modules":["02"],"year":2018,"level":"必读","title":"Improving Language Understanding by Generative Pre-Training","url":"https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf","why":"GPT-1：生成式预训练加监督任务适配。","focus18":false,"week":3,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[3],"coreWeeks":[]},{"id":"P006","modules":["02"],"year":2019,"level":"必读","title":"Language Models are Unsupervised Multitask Learners","url":"https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf","why":"GPT-2：语言建模与 Zero-shot 迁移能力。","focus18":false,"week":3,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[3],"coreWeeks":[]},{"id":"P007","modules":["02"],"year":2020,"level":"精读","title":"Language Models are Few-Shot Learners","url":"https://arxiv.org/abs/2005.14165","why":"GPT-3：Few-shot、In-context Learning 与 Scaling。","focus18":true,"week":3,"new":false,"priority":"P0","weekCore":[3],"assignedWeeks":[3],"coreWeeks":[3]},{"id":"P008","modules":["02","04"],"year":2022,"level":"精读","title":"Training Language Models to Follow Instructions with Human Feedback","url":"https://arxiv.org/abs/2203.02155","why":"InstructGPT：SFT、奖励模型与 RLHF。","focus18":true,"week":5,"new":false,"priority":"P0","weekCore":[5],"assignedWeeks":[5],"coreWeeks":[5]},{"id":"P009","modules":["02"],"year":2023,"level":"必读","title":"GPT-4 Technical Report","url":"https://arxiv.org/abs/2303.08774","why":"理解大模型系统、规模预测与公开细节的局限。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P010","modules":["02"],"year":2024,"level":"必读","title":"Learning to Reason with LLMs","url":"https://openai.com/index/learning-to-reason-with-llms/","why":"o1 研究介绍：推理时计算与强化学习；非完整训练论文。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P011","modules":["02"],"year":2025,"level":"拓展","title":"GPT-5 System Card","url":"https://openai.com/index/gpt-5-system-card/","why":"模型路由、推理系统与能力及安全评估；属于系统卡。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P012","modules":["03"],"year":2020,"level":"精读","title":"Scaling Laws for Neural Language Models","url":"https://arxiv.org/abs/2001.08361","why":"Kaplan：损失、参数、Token 和算力的经验幂律。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P013","modules":["03"],"year":2022,"level":"精读","title":"Training Compute-Optimal Large Language Models","url":"https://arxiv.org/abs/2203.15556","why":"Chinchilla：算力最优的数据与参数配置。","focus18":true,"week":3,"new":false,"priority":"P1","weekCore":[3],"assignedWeeks":[3],"coreWeeks":[3]},{"id":"P014","modules":["03"],"year":2021,"level":"拓展","title":"Switch Transformers","url":"https://arxiv.org/abs/2101.03961","why":"MoE 与稀疏专家路由。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P015","modules":["03"],"year":2023,"level":"必读","title":"LLaMA: Open and Efficient Foundation Language Models","url":"https://arxiv.org/abs/2302.13971","why":"开放权重基础模型的架构与数据策略。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P016","modules":["03"],"year":2024,"level":"必读","title":"DeepSeek-V3 Technical Report","url":"https://arxiv.org/abs/2412.19437","why":"MLA、MoE、高效训练与工程权衡。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P017","modules":["03"],"year":2025,"level":"必读","title":"Qwen3 Technical Report","url":"https://arxiv.org/abs/2505.09388","why":"小模型与 MoE 家族、思考模式及多语言能力。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P018","modules":["03"],"year":2021,"level":"拓展","title":"RoFormer: Enhanced Transformer with Rotary Position Embedding","url":"https://arxiv.org/abs/2104.09864","why":"RoPE 旋转位置编码的工作原理。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P019","modules":["03"],"year":2022,"level":"拓展","title":"FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness","url":"https://arxiv.org/abs/2205.14135","why":"为什么访存 IO 优化会影响注意力计算效率。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P020","modules":["03"],"year":2023,"level":"拓展","title":"GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints","url":"https://arxiv.org/abs/2305.13245","why":"GQA、MQA 与 KV Cache 成本。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P021","modules":["03"],"year":2023,"level":"拓展","title":"Efficient Memory Management for Large Language Model Serving with PagedAttention","url":"https://arxiv.org/abs/2309.06180","why":"PagedAttention、vLLM 与并发服务内存管理。","focus18":false,"week":8,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[8],"coreWeeks":[]},{"id":"P022","modules":["04"],"year":2021,"level":"必读","title":"LoRA: Low-Rank Adaptation of Large Language Models","url":"https://arxiv.org/abs/2106.09685","why":"用低秩更新减少微调参数和显存。","focus18":false,"week":5,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[5],"coreWeeks":[]},{"id":"P023","modules":["04"],"year":2023,"level":"拓展","title":"QLoRA: Efficient Finetuning of Quantized LLMs","url":"https://arxiv.org/abs/2305.14314","why":"量化基座与 LoRA 结合的显存优化。","focus18":false,"week":5,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[5],"coreWeeks":[]},{"id":"P024","modules":["04"],"year":2022,"level":"必读","title":"Constitutional AI: Harmlessness from AI Feedback","url":"https://arxiv.org/abs/2212.08073","why":"RLAIF、原则驱动的自我批评与修正。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P025","modules":["04"],"year":2023,"level":"精读","title":"Direct Preference Optimization: Your Language Model is Secretly a Reward Model","url":"https://arxiv.org/abs/2305.18290","why":"DPO 的偏好优化目标及与 RLHF 的关系。","focus18":true,"week":5,"new":false,"priority":"P1","weekCore":[5],"assignedWeeks":[5],"coreWeeks":[5]},{"id":"P026","modules":["04"],"year":2022,"level":"必读","title":"Self-Instruct: Aligning Language Models with Self-Generated Instructions","url":"https://arxiv.org/abs/2212.10560","why":"合成指令数据的构建与过滤。","focus18":false,"week":5,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[5],"coreWeeks":[]},{"id":"P027","modules":["05"],"year":2022,"level":"精读","title":"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models","url":"https://arxiv.org/abs/2201.11903","why":"CoT Prompting 与显式中间步骤。","focus18":true,"week":6,"new":false,"priority":"P0","weekCore":[6],"assignedWeeks":[6],"coreWeeks":[6]},{"id":"P028","modules":["05"],"year":2022,"level":"必读","title":"Self-Consistency Improves Chain of Thought Reasoning in Language Models","url":"https://arxiv.org/abs/2203.11171","why":"多路径推理采样与答案投票。","focus18":false,"week":6,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[6,7],"coreWeeks":[]},{"id":"P029","modules":["05"],"year":2023,"level":"必读","title":"Tree of Thoughts: Deliberate Problem Solving with Large Language Models","url":"https://arxiv.org/abs/2305.10601","why":"树搜索、评估分支与回溯。","focus18":false,"week":6,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[6],"coreWeeks":[]},{"id":"P030","modules":["05"],"year":2023,"level":"精读","title":"Let's Verify Step by Step","url":"https://arxiv.org/abs/2305.20050","why":"过程监督与结果监督、PRM 的作用。","focus18":true,"week":6,"new":false,"priority":"P0","weekCore":[6],"assignedWeeks":[6],"coreWeeks":[6]},{"id":"P031","modules":["05"],"year":2024,"level":"必读","title":"DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models","url":"https://arxiv.org/abs/2402.03300","why":"GRPO 与可验证的数学奖励。","focus18":false,"week":7,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[7],"coreWeeks":[]},{"id":"P032","modules":["05"],"year":2025,"level":"精读","title":"DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning","url":"https://arxiv.org/abs/2501.12948","why":"推理强化学习、验证与蒸馏。","focus18":true,"week":7,"new":false,"priority":"P0","weekCore":[7],"assignedWeeks":[7],"coreWeeks":[7]},{"id":"P033","modules":["05"],"year":2025,"level":"拓展","title":"s1: Simple test-time scaling","url":"https://arxiv.org/abs/2501.19393","why":"推理预算与测试时计算的可控性。","focus18":false,"week":7,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[7],"coreWeeks":[]},{"id":"P034","modules":["06"],"year":2023,"level":"精读","title":"Lost in the Middle: How Language Models Use Long Contexts","url":"https://arxiv.org/abs/2307.03172","why":"长上下文位置偏置与有效信息利用。","focus18":true,"week":8,"new":false,"priority":"P1","weekCore":[8],"assignedWeeks":[8],"coreWeeks":[8]},{"id":"P035","modules":["06"],"year":2023,"level":"必读","title":"LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding","url":"https://arxiv.org/abs/2308.14508","why":"长上下文任务和评测分布。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P036","modules":["06"],"year":2024,"level":"必读","title":"RULER: What's the Real Context Size of Your Long-Context Language Models?","url":"https://arxiv.org/abs/2404.06654","why":"标称与有效上下文的差距。","focus18":false,"week":8,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[8],"coreWeeks":[]},{"id":"P037","modules":["06"],"year":2023,"level":"必读","title":"LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models","url":"https://arxiv.org/abs/2310.05736","why":"Prompt 压缩与信息保留。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P038","modules":["06"],"year":2024,"level":"拓展","title":"LongRoPE: Extending LLM Context Window Beyond 2 Million Tokens","url":"https://arxiv.org/abs/2402.13753","why":"通过位置插值与扩展训练改善长窗口。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P039","modules":["06","11"],"year":2024,"level":"拓展","title":"Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context","url":"https://arxiv.org/abs/2403.05530","why":"超长上下文与多模态统一的系统研究。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P040","modules":["07"],"year":2020,"level":"必读","title":"Dense Passage Retrieval for Open-Domain Question Answering","url":"https://arxiv.org/abs/2004.04906","why":"双编码器、Dense Retrieval 与召回率。","focus18":false,"week":9,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[9],"coreWeeks":[]},{"id":"P041","modules":["07"],"year":2020,"level":"精读","title":"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks","url":"https://arxiv.org/abs/2005.11401","why":"参数知识与非参数检索相结合。","focus18":true,"week":9,"new":false,"priority":"P1","weekCore":[9],"assignedWeeks":[9],"coreWeeks":[9]},{"id":"P042","modules":["07"],"year":2023,"level":"精读","title":"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection","url":"https://arxiv.org/abs/2310.11511","why":"按需检索、证据评估和反思。","focus18":true,"week":9,"new":false,"priority":"P1","weekCore":[9],"assignedWeeks":[9],"coreWeeks":[9]},{"id":"P043","modules":["07"],"year":2024,"level":"拓展","title":"Corrective Retrieval Augmented Generation","url":"https://arxiv.org/abs/2401.15884","why":"低质量检索的评价和纠错。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P044","modules":["07"],"year":2024,"level":"必读","title":"From Local to Global: A Graph RAG Approach to Query-Focused Summarization","url":"https://arxiv.org/abs/2404.16130","why":"图结构与跨文档全局总结。","focus18":false,"week":9,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[9],"coreWeeks":[]},{"id":"P045","modules":["08"],"year":2023,"level":"精读","title":"Generative Agents: Interactive Simulacra of Human Behavior","url":"https://arxiv.org/abs/2304.03442","why":"记忆流、反思、检索与规划。","focus18":true,"week":10,"new":false,"priority":"P1","weekCore":[10],"assignedWeeks":[10],"coreWeeks":[10]},{"id":"P046","modules":["08"],"year":2023,"level":"拓展","title":"MemoryBank: Enhancing Large Language Models with Long-Term Memory","url":"https://arxiv.org/abs/2305.10250","why":"长期记忆更新和遗忘。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P047","modules":["08"],"year":2023,"level":"精读","title":"MemGPT: Towards LLMs as Operating Systems","url":"https://arxiv.org/abs/2310.08560","why":"分层内存、有限上下文的虚拟化管理。","focus18":true,"week":10,"new":false,"priority":"P1","weekCore":[10],"assignedWeeks":[10],"coreWeeks":[10]},{"id":"P048","modules":["08"],"year":2023,"level":"必读","title":"Reflexion: Language Agents with Verbal Reinforcement Learning","url":"https://arxiv.org/abs/2303.11366","why":"语言反馈和经历型记忆。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P049","modules":["08"],"year":2024,"level":"必读","title":"LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory","url":"https://arxiv.org/abs/2410.10813","why":"长期记忆、时间关系和知识更新评价。","focus18":false,"week":10,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[10],"coreWeeks":[]},{"id":"P050","modules":["08"],"year":2025,"level":"必读","title":"A-Mem: Agentic Memory for LLM Agents","url":"https://arxiv.org/abs/2502.12110","why":"关联记忆笔记与动态知识网络。","focus18":false,"week":10,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[10],"coreWeeks":[]},{"id":"P051","modules":["08"],"year":2024,"level":"拓展","title":"A Survey on the Memory Mechanism of Large Language Model-based Agents","url":"https://arxiv.org/abs/2404.13501","why":"横向综述 Agent 记忆机制与分类。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P052","modules":["09"],"year":2021,"level":"必读","title":"WebGPT: Browser-assisted Question-answering with Human Feedback","url":"https://arxiv.org/abs/2112.09332","why":"浏览器工具、证据和人类反馈。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P053","modules":["09"],"year":2022,"level":"精读","title":"ReAct: Synergizing Reasoning and Acting in Language Models","url":"https://arxiv.org/abs/2210.03629","why":"Thought-Action-Observation 交替循环。","focus18":true,"week":13,"new":false,"priority":"P1","weekCore":[13],"assignedWeeks":[13],"coreWeeks":[13]},{"id":"P054","modules":["09"],"year":2023,"level":"必读","title":"Toolformer: Language Models Can Teach Themselves to Use Tools","url":"https://arxiv.org/abs/2302.04761","why":"工具调用样本生成与自监督工具学习。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P055","modules":["09"],"year":2023,"level":"精读","title":"Voyager: An Open-Ended Embodied Agent with Large Language Models","url":"https://arxiv.org/abs/2305.16291","why":"自动课程、技能库与环境反馈。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P056","modules":["09"],"year":2023,"level":"拓展","title":"AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation","url":"https://arxiv.org/abs/2308.08155","why":"基于对话的多 Agent 编排。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P057","modules":["09"],"year":2024,"level":"精读","title":"SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering","url":"https://arxiv.org/abs/2405.15793","why":"工具接口设计与真实代码仓库交互。","focus18":true,"week":13,"new":false,"priority":"P1","weekCore":[13],"assignedWeeks":[13],"coreWeeks":[13]},{"id":"P058","modules":["09"],"year":2023,"level":"拓展","title":"AgentBench: Evaluating LLMs as Agents","url":"https://arxiv.org/abs/2308.03688","why":"多种交互环境下的 Agent 评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P059","modules":["09"],"year":2023,"level":"拓展","title":"GAIA: A Benchmark for General AI Assistants","url":"https://arxiv.org/abs/2311.12983","why":"面向真实任务的工具、推理和检索评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P060","modules":["09"],"year":2023,"level":"必读","title":"SWE-bench: Can Language Models Resolve Real-World GitHub Issues?","url":"https://arxiv.org/abs/2310.06770","why":"真实软件问题的解决率与可复现评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P061","modules":["09"],"year":2024,"level":"拓展","title":"OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments","url":"https://arxiv.org/abs/2404.07972","why":"多模态桌面交互任务评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P062","modules":["09"],"year":2023,"level":"拓展","title":"A Survey on Large Language Model based Autonomous Agents","url":"https://arxiv.org/abs/2308.11432","why":"Agent 设计空间、规划、记忆和工具全景。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P063","modules":["10"],"year":2007,"level":"拓展","title":"Gödel Machines: Fully Self-referential Optimal Universal Self-improvers","url":"https://sferics.idsia.ch/pub/juergen/gmAGI.pdf","why":"具备证明条件的理论化自修改系统。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P064","modules":["10"],"year":2022,"level":"精读","title":"STaR: Bootstrapping Reasoning With Reasoning","url":"https://arxiv.org/abs/2203.14465","why":"生成推理轨迹、筛选并迭代训练。","focus18":true,"week":15,"new":false,"priority":"P0","weekCore":[15],"assignedWeeks":[15],"coreWeeks":[15]},{"id":"P065","modules":["10"],"year":2023,"level":"必读","title":"Self-Refine: Iterative Refinement with Self-Feedback","url":"https://arxiv.org/abs/2303.17651","why":"提出建议、生成反馈与迭代修正。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P066","modules":["10"],"year":2023,"level":"精读","title":"Self-Taught Optimizer (STOP): Recursively Self-Improving Code Generation","url":"https://arxiv.org/abs/2310.02304","why":"自动优化代码框架，注意固定底层模型的局限。","focus18":false,"week":15,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[15],"coreWeeks":[]},{"id":"P067","modules":["10"],"year":2024,"level":"必读","title":"Self-Rewarding Language Models","url":"https://arxiv.org/abs/2401.10020","why":"LLM-as-a-Judge 与迭代偏好优化。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P068","modules":["10"],"year":2024,"level":"精读","title":"Automated Design of Agentic Systems","url":"https://arxiv.org/abs/2408.08435","why":"自动搜索 Agent 系统设计。","focus18":false,"week":16,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[16],"coreWeeks":[]},{"id":"P069","modules":["10"],"year":2024,"level":"拓展","title":"The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery","url":"https://arxiv.org/abs/2408.06292","why":"自动化科研流程的系统设计与局限。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P070","modules":["10"],"year":2025,"level":"精读","title":"Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents","url":"https://arxiv.org/abs/2505.22954","why":"程序级自修改、实验评价与演化档案。","focus18":true,"week":16,"new":false,"priority":"P0","weekCore":[16],"assignedWeeks":[16],"coreWeeks":[16]},{"id":"P071","modules":["10"],"year":2025,"level":"必读","title":"Absolute Zero: Reinforced Self-play Reasoning with Zero Data","url":"https://arxiv.org/abs/2505.03335","why":"自生成问题、可验证反馈与 Self-play。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P072","modules":["10"],"year":2025,"level":"精读","title":"Self-Adapting Language Models (SEAL)","url":"https://arxiv.org/abs/2506.10943","why":"自生成适配数据、参数更新和元学习反馈。","focus18":true,"week":16,"new":false,"priority":"P0","weekCore":[16],"assignedWeeks":[16],"coreWeeks":[16]},{"id":"P073","modules":["10"],"year":2025,"level":"必读","title":"AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery","url":"https://arxiv.org/abs/2506.13131","why":"代码变异、自动评价与演化式算法发现。","focus18":false,"week":16,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[16],"coreWeeks":[]},{"id":"P074","modules":["11"],"year":2021,"level":"精读","title":"CLIP: Learning Transferable Visual Models From Natural Language Supervision","url":"https://arxiv.org/abs/2103.00020","why":"图文对比学习、共享表征空间。","focus18":false,"week":11,"new":false,"priority":"P0","weekCore":[11],"assignedWeeks":[11],"coreWeeks":[11]},{"id":"P075","modules":["11"],"year":2022,"level":"必读","title":"Flamingo: a Visual Language Model for Few-Shot Learning","url":"https://arxiv.org/abs/2204.14198","why":"视觉-语言融合和多模态 Few-shot。","focus18":false,"week":null,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P076","modules":["11"],"year":2023,"level":"必读","title":"Visual Instruction Tuning (LLaVA)","url":"https://arxiv.org/abs/2304.08485","why":"视觉投影器与多模态指令微调。","focus18":false,"week":11,"new":false,"priority":"P0","weekCore":[],"assignedWeeks":[11],"coreWeeks":[]},{"id":"P077","modules":["12"],"year":2020,"level":"必读","title":"Measuring Massive Multitask Language Understanding (MMLU)","url":"https://arxiv.org/abs/2009.03300","why":"覆盖广泛任务的知识与推理评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P078","modules":["12"],"year":2021,"level":"必读","title":"TruthfulQA: Measuring How Models Mimic Human Falsehoods","url":"https://arxiv.org/abs/2109.07958","why":"模型模仿常见错误认知与真实性评测。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P079","modules":["12"],"year":2022,"level":"精读","title":"Holistic Evaluation of Language Models (HELM)","url":"https://arxiv.org/abs/2211.09110","why":"多维评价：准确率、校准、鲁棒性、效率等。","focus18":false,"week":16,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[16],"coreWeeks":[]},{"id":"P080","modules":["12"],"year":2024,"level":"拓展","title":"Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training","url":"https://arxiv.org/abs/2401.05566","why":"条件触发的不安全行为与训练鲁棒性问题。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P081","modules":["12"],"year":2021,"level":"必读","title":"A Mathematical Framework for Transformer Circuits","url":"https://transformer-circuits.pub/2021/framework/index.html","why":"Transformer Circuits 的数学描述与机制分析。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P082","modules":["12"],"year":2022,"level":"拓展","title":"Toy Models of Superposition","url":"https://transformer-circuits.pub/2022/toy_model/index.html","why":"Superposition 与特征多义性。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P083","modules":["12"],"year":2023,"level":"必读","title":"Towards Monosemanticity: Decomposing Language Models With Dictionary Learning","url":"https://transformer-circuits.pub/2023/monosemantic-features/index.html","why":"稀疏自编码器与可解释特征拆解。","focus18":false,"week":null,"new":false,"priority":"P1","weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P084","modules":["13"],"year":2015,"level":"精读","title":"Neural Machine Translation of Rare Words with Subword Units","url":"https://arxiv.org/abs/1508.07909","why":"BPE，理解 Tokenizer 如何影响词表和序列长度。","focus18":false,"new":true,"priority":"P0","week":1,"weekCore":[1],"assignedWeeks":[1],"coreWeeks":[1]},{"id":"P085","modules":["13"],"year":2018,"level":"必读","title":"SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing","url":"https://arxiv.org/abs/1808.06226","why":"SentencePiece：基于原始文本的子词建模。","focus18":false,"new":true,"priority":"P0","week":1,"weekCore":[],"assignedWeeks":[1],"coreWeeks":[]},{"id":"P086","modules":["13"],"year":2020,"level":"必读","title":"The Pile: An 800GB Dataset of Diverse Text for Language Modeling","url":"https://arxiv.org/abs/2101.00027","why":"理解多来源语言训练数据及其权衡。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P087","modules":["13"],"year":2021,"level":"精读","title":"Deduplicating Training Data Makes Language Models Better","url":"https://arxiv.org/abs/2107.06499","why":"数据重复会怎样影响记忆、泛化和评测。","focus18":false,"new":true,"priority":"P0","week":1,"weekCore":[1],"assignedWeeks":[1],"coreWeeks":[1]},{"id":"P088","modules":["13"],"year":2024,"level":"精读","title":"The FineWeb Datasets: Decanting the Web for the Finest Text Data at Scale","url":"https://arxiv.org/abs/2406.17557","why":"数据过滤、去重与教育领域样本筛选。","focus18":false,"new":true,"priority":"P0","week":1,"weekCore":[],"assignedWeeks":[1],"coreWeeks":[]},{"id":"P089","modules":["13"],"year":2024,"level":"必读","title":"DataComp-LM: In Search of the Next Generation of Training Sets for Language Models","url":"https://arxiv.org/abs/2406.11794","why":"训练数据选择与公平比较的基准。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P090","modules":["13"],"year":2024,"level":"拓展","title":"Data Mixing Laws: Optimizing Data Mixtures by Predicting Language Modeling Performance","url":"https://arxiv.org/abs/2403.16952","why":"不同数据来源配比对训练结果的影响。","focus18":false,"new":true,"priority":"P0","week":3,"weekCore":[],"assignedWeeks":[3],"coreWeeks":[]},{"id":"P091","modules":["13"],"year":2023,"level":"必读","title":"Textbooks Are All You Need","url":"https://arxiv.org/abs/2306.11644","why":"高质量合成文本与小模型训练的关系。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P092","modules":["13","10"],"year":2023,"level":"必读","title":"The Curse of Recursion: Training on Generated Data Makes Models Forget","url":"https://arxiv.org/abs/2305.17493","why":"合成数据递归训练中的 Model Collapse 风险。","focus18":false,"new":true,"priority":"P0","week":1,"weekCore":[],"assignedWeeks":[1],"coreWeeks":[]},{"id":"P093","modules":["14"],"year":2014,"level":"必读","title":"Adam: A Method for Stochastic Optimization","url":"https://arxiv.org/abs/1412.6980","why":"理解参数更新、动量和二阶矩估计。","focus18":false,"new":true,"priority":"P0","week":4,"weekCore":[],"assignedWeeks":[4],"coreWeeks":[]},{"id":"P094","modules":["14"],"year":2016,"level":"拓展","title":"Layer Normalization","url":"https://arxiv.org/abs/1607.06450","why":"归一化在训练稳定性中的作用。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P095","modules":["14"],"year":2017,"level":"精读","title":"Mixed Precision Training","url":"https://arxiv.org/abs/1710.03740","why":"FP16、Loss Scaling、数值范围与优化器状态。","focus18":false,"new":true,"priority":"P0","week":4,"weekCore":[4],"assignedWeeks":[4],"coreWeeks":[4]},{"id":"P096","modules":["14"],"year":2016,"level":"必读","title":"Training Deep Nets with Sublinear Memory Cost","url":"https://arxiv.org/abs/1604.06174","why":"Gradient Checkpointing 的计算-显存交换。","focus18":false,"new":true,"priority":"P0","week":4,"weekCore":[4],"assignedWeeks":[4],"coreWeeks":[4]},{"id":"P097","modules":["14"],"year":2019,"level":"必读","title":"ZeRO: Memory Optimizations Toward Training Trillion Parameter Models","url":"https://arxiv.org/abs/1910.02054","why":"参数、梯度、优化器状态分片的设计思想。","focus18":false,"new":true,"priority":"P0","week":4,"weekCore":[],"assignedWeeks":[4],"coreWeeks":[]},{"id":"P098","modules":["14"],"year":2019,"level":"必读","title":"Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism","url":"https://arxiv.org/abs/1909.08053","why":"张量并行与分布式训练的计算通信权衡。","focus18":false,"new":true,"priority":"P0","week":4,"weekCore":[],"assignedWeeks":[4],"coreWeeks":[]},{"id":"P099","modules":["15"],"year":2022,"level":"必读","title":"GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers","url":"https://arxiv.org/abs/2210.17323","why":"权重量化的误差补偿与精度。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P100","modules":["15"],"year":2023,"level":"精读","title":"AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration","url":"https://arxiv.org/abs/2306.00978","why":"量化时关键权重通道的保护。","focus18":false,"new":true,"priority":"P1","week":8,"weekCore":[8],"assignedWeeks":[8],"coreWeeks":[8]},{"id":"P101","modules":["15"],"year":2022,"level":"必读","title":"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models","url":"https://arxiv.org/abs/2211.10438","why":"权重/激活量化难度重分配。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P102","modules":["15"],"year":2022,"level":"精读","title":"Fast Inference from Transformers via Speculative Decoding","url":"https://arxiv.org/abs/2211.17192","why":"草稿-验证式生成减少解码等待时间。","focus18":false,"new":true,"priority":"P1","week":8,"weekCore":[],"assignedWeeks":[8],"coreWeeks":[]},{"id":"P103","modules":["15"],"year":2022,"level":"必读","title":"Orca: A Distributed Serving System for Transformer-Based Generative Models","url":"https://www.usenix.org/conference/osdi22/presentation/yu","why":"Iteration-level Scheduling 和连续批处理。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P104","modules":["15"],"year":2024,"level":"拓展","title":"DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving","url":"https://arxiv.org/abs/2401.09670","why":"Prefill/Decode 拆分部署对延迟和吞吐的影响。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P105","modules":["16"],"year":2023,"level":"精读","title":"DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines","url":"https://arxiv.org/abs/2310.03714","why":"声明式调用、优化器与工作流。","focus18":false,"new":true,"priority":"P1","week":13,"weekCore":[],"assignedWeeks":[13],"coreWeeks":[]},{"id":"P106","modules":["16","10"],"year":2024,"level":"精读","title":"AFlow: Automating Agentic Workflow Generation","url":"https://arxiv.org/abs/2410.10762","why":"自动化工作流搜索和反馈驱动优化。","focus18":false,"new":true,"priority":"P1","week":16,"weekCore":[],"assignedWeeks":[16],"coreWeeks":[]},{"id":"P107","modules":["16"],"year":2024,"level":"必读","title":"τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains","url":"https://arxiv.org/abs/2406.12045","why":"真实交互中的政策约束与 pass^k 可靠性。","focus18":false,"new":true,"priority":"P1","week":13,"weekCore":[],"assignedWeeks":[13],"coreWeeks":[]},{"id":"P108","modules":["16"],"year":2024,"level":"必读","title":"ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities","url":"https://arxiv.org/abs/2408.04682","why":"跨调用状态依赖和对话式工具评测。","focus18":false,"new":true,"priority":"P1","week":13,"weekCore":[],"assignedWeeks":[13,14],"coreWeeks":[]},{"id":"P109","modules":["16"],"year":2023,"level":"拓展","title":"An LLM Compiler for Parallel Function Calling","url":"https://arxiv.org/abs/2312.04511","why":"并行工具调用、DAG 编排与延迟优化。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P110","modules":["17"],"year":2023,"level":"精读","title":"Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection","url":"https://arxiv.org/abs/2302.12173","why":"间接提示注入的信任边界与应用攻击面。","focus18":false,"new":true,"priority":"P1","week":14,"weekCore":[14],"assignedWeeks":[14],"coreWeeks":[14]},{"id":"P111","modules":["17"],"year":2024,"level":"必读","title":"InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents","url":"https://arxiv.org/abs/2403.02691","why":"工具增强 Agent 的间接提示注入评测。","focus18":false,"new":true,"priority":"P1","week":14,"weekCore":[],"assignedWeeks":[14],"coreWeeks":[]},{"id":"P112","modules":["17"],"year":2024,"level":"精读","title":"AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents","url":"https://arxiv.org/abs/2406.13352","why":"安全测试环境、权限与防护基准。","focus18":false,"new":true,"priority":"P1","week":14,"weekCore":[14],"assignedWeeks":[14],"coreWeeks":[14]},{"id":"P113","modules":["17"],"year":2024,"level":"必读","title":"The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions","url":"https://arxiv.org/abs/2404.13208","why":"系统/用户/工具信息的优先级与信任层次。","focus18":false,"new":true,"priority":"P1","week":14,"weekCore":[],"assignedWeeks":[14],"coreWeeks":[]},{"id":"P114","modules":["17"],"year":2022,"level":"拓展","title":"Ignore Previous Prompt: Attack Techniques For Language Models","url":"https://arxiv.org/abs/2211.09527","why":"提示注入与越狱攻击的早期分类。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P115","modules":["18"],"year":2016,"level":"精读","title":"Overcoming Catastrophic Forgetting in Neural Networks","url":"https://arxiv.org/abs/1612.00796","why":"Elastic Weight Consolidation 与旧任务遗忘。","focus18":false,"new":true,"priority":"P1","week":15,"weekCore":[15],"assignedWeeks":[15],"coreWeeks":[15]},{"id":"P116","modules":["18"],"year":2016,"level":"拓展","title":"Learning without Forgetting","url":"https://arxiv.org/abs/1606.09282","why":"任务增量学习与蒸馏式知识保留。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P117","modules":["18"],"year":2022,"level":"精读","title":"Locating and Editing Factual Associations in GPT","url":"https://arxiv.org/abs/2202.05262","why":"ROME：定位并修改模型里的事实关联。","focus18":false,"new":true,"priority":"P1","week":15,"weekCore":[],"assignedWeeks":[15],"coreWeeks":[]},{"id":"P118","modules":["18"],"year":2022,"level":"必读","title":"Mass-Editing Memory in a Transformer","url":"https://arxiv.org/abs/2210.07229","why":"MEMIT：批量修改模型事实记忆。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P119","modules":["18"],"year":2024,"level":"精读","title":"TOFU: A Task of Fictitious Unlearning for LLMs","url":"https://arxiv.org/abs/2401.06121","why":"遗忘指标及 Forget/Retain 测试设计。","focus18":false,"new":true,"priority":"P1","week":15,"weekCore":[],"assignedWeeks":[15],"coreWeeks":[]},{"id":"P120","modules":["18"],"year":2023,"level":"拓展","title":"Who's Harry Potter? Approximate Unlearning in LLMs","url":"https://arxiv.org/abs/2310.02238","why":"近似 Unlearning 与保留能力之间的权衡。","focus18":false,"new":true,"priority":"P1","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P121","modules":["19"],"year":2023,"level":"精读","title":"Mamba: Linear-Time Sequence Modeling with Selective State Spaces","url":"https://arxiv.org/abs/2312.00752","why":"Selective SSM、线性序列计算与 Transformer 对比。","focus18":false,"new":true,"priority":"P2","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P122","modules":["19"],"year":2024,"level":"必读","title":"Jamba: A Hybrid Transformer-Mamba Language Model","url":"https://arxiv.org/abs/2403.19887","why":"Attention 和 SSM 的混合架构。","focus18":false,"new":true,"priority":"P2","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P123","modules":["20"],"year":2018,"level":"精读","title":"World Models","url":"https://arxiv.org/abs/1803.10122","why":"潜在环境模型、预测和基于想象的行为控制。","focus18":false,"new":true,"priority":"P2","week":12,"weekCore":[12],"assignedWeeks":[12],"coreWeeks":[12]},{"id":"P124","modules":["20"],"year":2023,"level":"必读","title":"Mastering Diverse Domains through World Models","url":"https://arxiv.org/abs/2301.04104","why":"DreamerV3 的世界模型与环境交互。","focus18":false,"new":true,"priority":"P2","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P125","modules":["20"],"year":2024,"level":"必读","title":"Genie: Generative Interactive Environments","url":"https://arxiv.org/abs/2402.15391","why":"可交互环境的生成模型。","focus18":false,"new":true,"priority":"P2","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P126","modules":["11"],"year":2022,"level":"精读","title":"Robust Speech Recognition via Large-Scale Weak Supervision","url":"https://arxiv.org/abs/2212.04356","why":"Whisper：音频识别及弱监督。","focus18":false,"new":true,"priority":"P0","week":11,"weekCore":[11],"assignedWeeks":[11],"coreWeeks":[11]},{"id":"P127","modules":["11"],"year":2023,"level":"必读","title":"AudioPaLM: A Large Language Model That Can Speak and Listen","url":"https://arxiv.org/abs/2306.12925","why":"语音理解与生成统一架构。","focus18":false,"new":true,"priority":"P0","week":11,"weekCore":[],"assignedWeeks":[11],"coreWeeks":[]},{"id":"P128","modules":["11"],"year":2023,"level":"必读","title":"Video-LLaVA: Learning United Visual Representation by Alignment Before Projection","url":"https://arxiv.org/abs/2311.10122","why":"视频帧与语言的统一视觉表示。","focus18":false,"new":true,"priority":"P0","week":12,"weekCore":[],"assignedWeeks":[12],"coreWeeks":[]},{"id":"P129","modules":["11"],"year":2023,"level":"必读","title":"ImageBind: One Embedding Space To Bind Them All","url":"https://arxiv.org/abs/2305.05665","why":"视觉、音频等多模态统一嵌入。","focus18":false,"new":true,"priority":"P0","week":11,"weekCore":[],"assignedWeeks":[11],"coreWeeks":[]},{"id":"P130","modules":["11","20"],"year":2023,"level":"精读","title":"RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control","url":"https://arxiv.org/abs/2307.15818","why":"VLA 把语言与视觉知识转成动作 Token。","focus18":false,"new":true,"priority":"P0","week":12,"weekCore":[12],"assignedWeeks":[12],"coreWeeks":[12]},{"id":"P131","modules":["11","20"],"year":2024,"level":"必读","title":"OpenVLA: An Open-Source Vision-Language-Action Model","url":"https://arxiv.org/abs/2406.09246","why":"开放 VLA、机器人的感知—行动闭环。","focus18":false,"new":true,"priority":"P0","week":12,"weekCore":[],"assignedWeeks":[12],"coreWeeks":[]},{"id":"P132","modules":["11","20"],"year":2023,"level":"必读","title":"PaLM-E: An Embodied Multimodal Language Model","url":"https://arxiv.org/abs/2303.03378","why":"融合连续视觉/状态输入的具身大模型。","focus18":false,"new":true,"priority":"P0","week":12,"weekCore":[],"assignedWeeks":[12],"coreWeeks":[]},{"id":"P133","modules":["11"],"year":2023,"level":"必读","title":"Unified-IO 2: Scaling Autoregressive Multimodal Models with Vision, Language, Audio, and Action","url":"https://arxiv.org/abs/2312.17172","why":"图像、语言、音频、动作的统一输出范式。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P134","modules":["11"],"year":2020,"level":"拓展","title":"Denoising Diffusion Probabilistic Models","url":"https://arxiv.org/abs/2006.11239","why":"多模态生成分支：扩散建模基础。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P135","modules":["11"],"year":2021,"level":"拓展","title":"High-Resolution Image Synthesis with Latent Diffusion Models","url":"https://arxiv.org/abs/2112.10752","why":"Latent Diffusion 与生成系统。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P136","modules":["11"],"year":2023,"level":"拓展","title":"Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding","url":"https://arxiv.org/abs/2306.02858","why":"音频与视频理解的多模态指令学习。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]},{"id":"P137","modules":["11"],"year":2023,"level":"拓展","title":"Multimodal Chain-of-Thought Reasoning in Language Models","url":"https://arxiv.org/abs/2302.00923","why":"视觉和语言协同的多模态推理。","focus18":false,"new":true,"priority":"P0","week":null,"weekCore":[],"assignedWeeks":[],"coreWeeks":[]}],"weeks":[{"n":1,"title":"数据与 Tokenizer：模型生命周期的起点","stage":"DATA · P0","goal":"理解 BPE/SentencePiece、去重、数据质量与评测集污染。","readings":["Neural Machine Translation of Rare Words with Subword Units","SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing","Deduplicating Training Data Makes Language Models Better","The FineWeb Datasets: Decanting the Web for the Finest Text Data at Scale","The Curse of Recursion: Training on Generated Data Makes Models Forget"],"core":["Neural Machine Translation of Rare Words with Subword Units","Deduplicating Training Data Makes Language Models Better"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W01","title":"Toy BPE + Data Audit：5MB 小语料实验","steps":["在公开许可或自制文本上实现小型 BPE（也可用 tokenizers 库），比较字符级、词级和子词级序列长度。","对 2–5MB 文本做 Exact/MinHash 近重复检测；建立 train/test 的去重、隔离检查。","构造少量重复样本，对比清洗前后的重复率与训练/测试污染率，输出数据卡。"],"deliverable":"tokenizer_demo.ipynb + data_audit.csv + 数据卡","acceptance":"准确计算不同切分策略的长度分布；对给定重复/泄漏样本能检测出来。","model":"纯 Python / Hugging Face tokenizers，不依赖预训练模型","memory":"CPU，内存建议 <2GB","fallback":"不下载大规模数据集，只用几 MB 合法样本或自己写的文本。","a40":"","stretch":"分析中英混合语料的 token/字与 token/词比值。","estimated":"3–4 小时"}},{"n":2,"title":"Transformer：从零写一个语言模型","stage":"PRETRAIN · P0","goal":"掌握 Decoder-only、Causal Mask、LayerNorm 和自回归训练。","readings":["Attention Is All You Need","BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding","Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer"],"core":["Attention Is All You Need"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W02","title":"MiniGPT：0.3M–2M 参数字符级 LM","steps":["用 PyTorch 手写 Token Embedding、Attention、MLP、LayerNorm 与残差结构。","用 1–3MB 文本训练简化的 Decoder-only LM，记录训练/验证 loss。","做无位置编码和无 Causal Mask（仅用于说明泄漏风险）的对照，禁止将其当有效语言模型结果。"],"deliverable":"代码 + 张量形状说明 + Loss 曲线 + 生成样例","acceptance":"能现场解释 Q/K/V 维度、Mask、残差和不同训练/推理状态。","model":"自建 0.3M–2M MiniGPT","memory":"本地 5060 或 CPU；一般 <2GB 显存","fallback":"CPU 可训练更小模型，减少 batch/步数。","a40":"","stretch":"用 Attention Map 可视化观察部分注意力头。","estimated":"4–5 小时"}},{"n":3,"title":"GPT / Scaling 与预训练数据配比","stage":"PRETRAIN · P0","goal":"从 GPT-1/2/3 理解 ICL 和 Scaling，理解数据规模与模型规模的选择。","readings":["Improving Language Understanding by Generative Pre-Training","Language Models are Unsupervised Multitask Learners","Language Models are Few-Shot Learners","Training Compute-Optimal Large Language Models","Data Mixing Laws: Optimizing Data Mixtures by Predicting Language Modeling Performance"],"core":["Language Models are Few-Shot Learners","Training Compute-Optimal Large Language Models"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W03","title":"Micro Scaling + Mixture：训练规模与数据混合实验","steps":["沿用 MiniGPT，构建 0.5M/1.5M/3M 参数三个配置，并控制 Token 预算。","混合两种不同的小语料，比较两个配比下的验证 loss。","对每组固定数据切分、种子、训练步数、设备和显存峰值，生成对照图。"],"deliverable":"配置表 + loss/step/速度/显存曲线 + 1 页结论","acceptance":"区分小模型实验的观察结果与正式 Scaling Laws，不能凭三组数据断言最优规律。","model":"自建 <4M 模型","memory":"本地 RTX 5060，显存约 1–3GB","fallback":"CPU 上只保留两种配置与少量迭代。","a40":"","stretch":"用 log-log 线性拟合做可视化，并明确置信限制。","estimated":"4–6 小时"}},{"n":4,"title":"训练系统与数值稳定性","stage":"TRAIN · P0","goal":"理解 Adam、FP16/BF16、Gradient Checkpointing、ZeRO 和并行的原理。","readings":["Adam: A Method for Stochastic Optimization","Mixed Precision Training","Training Deep Nets with Sublinear Memory Cost","ZeRO: Memory Optimizations Toward Training Trillion Parameter Models","Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"],"core":["Mixed Precision Training","Training Deep Nets with Sublinear Memory Cost"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W04","title":"Mini Train Profiler：显存—速度—稳定性对比","steps":["在小型 Transformer 上对比 FP32 与 BF16/FP16（仅在支持时）以及开启/关闭 Activation Checkpointing。","固定数据、模型、batch 和步数，记录 max_memory_allocated、step/s、loss 与 NaN 次数。","用纸面张量与内存预算解释 DP / TP / PP / ZeRO；不做多 GPU 训练。"],"deliverable":"实验脚本 + 结果 CSV + 两张可解释图 + 内存预算表","acceptance":"有真实 GPU 显存记录与公平对照；数值精度不支持时明确标注而非静默跳过。","model":"复用 MiniGPT（2M–20M 可逐步试）","memory":"RTX 5060 8GB；从小批量/短序列起","fallback":"若 Checkpointing 开销看不出差异，可以放大序列但不能 OOM；FP32 CPU 对照也可。","a40":"经过允许时，仅借用 1 张空闲 A40 对照一次同等规模实验，不启用分布式。","stretch":"手算 Adam 状态占用与 LoRA/全参微调的内存结构差异。","estimated":"4–5 小时"}},{"n":5,"title":"SFT / LoRA / DPO：后训练闭环","stage":"POSTTRAIN · P0","goal":"区分数据质量、SFT、RLHF、偏好优化和训练失败信号。","readings":["Training Language Models to Follow Instructions with Human Feedback","LoRA: Low-Rank Adaptation of Large Language Models","Direct Preference Optimization: Your Language Model is Secretly a Reward Model","Self-Instruct: Aligning Language Models with Self-Generated Instructions","QLoRA: Efficient Finetuning of Quantized LLMs"],"core":["Training Language Models to Follow Instructions with Human Feedback","Direct Preference Optimization: Your Language Model is Secretly a Reward Model"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W05","title":"Tiny Adapter：0.6B 短序列 LoRA + 数据质量消融","steps":["自制 100–200 条公开/合成短任务，划分训练与固定测试；加入少量故意低质量样本以做对照。","尝试 Qwen3-0.6B 短序列 LoRA（r=4/8，microbatch=1，sequence≤256），先做显存探测。","比较未训练、干净 SFT 和混入脏数据后的准确率与格式遵守率。"],"deliverable":"训练配置/Adapter + held-out 测试表 + 失败分析","acceptance":"同一个固定测试集比较；不能只靠几条对话样例证明模型变强。","model":"Qwen3-0.6B；必要时仅实现 LoRA 层与 loss 计算","memory":"RTX 5060，显存限制以实际探测为准","fallback":"若 bitsandbytes/CUDA 不兼容或 OOM，改用更小 MiniGPT/LoRA 模块，不强制 0.6B 微调。","a40":"可用单张空闲 A40 时，选做 1.7B QLoRA，限制显存与时长。","stretch":"实现 DPO loss 的小规模数值验证，不要求完整偏好训练。","estimated":"4–6 小时"}},{"n":6,"title":"Reasoning：CoT、搜索与过程监督","stage":"REASON · P0","goal":"掌握 CoT、Self-Consistency、Tree of Thoughts 和 PRM 思路。","readings":["Chain-of-Thought Prompting Elicits Reasoning in Large Language Models","Self-Consistency Improves Chain of Thought Reasoning in Language Models","Tree of Thoughts: Deliberate Problem Solving with Large Language Models","Let's Verify Step by Step"],"core":["Chain-of-Thought Prompting Elicits Reasoning in Large Language Models","Let's Verify Step by Step"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W06","title":"Reasoning Arena：三种推理策略同题对照","steps":["构造 30 道可自动验证的算术/逻辑题，划分容易、中等、困难三级。","运行 Direct、CoT、3-sample Self-Consistency；固定 seed、温度与总样本预算。","统计准确率、token/题、延迟，记录 5 个长推理反而出错的案例。"],"deliverable":"评测 JSONL + Accuracy/Token/Latency 图 + 错误归因","acceptance":"同题同模型；不把长输出当成正确推理，记录显式验证结果。","model":"Qwen3-0.6B/1.7B 4-bit","memory":"RTX 5060；避免大批并发、先用 1K–2K context","fallback":"如果效果差，缩小题目复杂度但保留公平比较。","a40":"","stretch":"加入两分支 ToT，在低预算下衡量搜索收益。","estimated":"3–5 小时"}},{"n":7,"title":"Reasoning RL：验证器与 Test-time Compute","stage":"REASON · P0","goal":"理解 RLVR/GRPO 和评价器，识别验证泄漏与奖励投机。","readings":["DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models","DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning","s1: Simple test-time scaling","Self-Consistency Improves Chain of Thought Reasoning in Language Models"],"core":["DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W07","title":"Verifier Arena：Best-of-N 与奖励投机测试","steps":["设计 40 道有确定性输出校验的任务，验证器只接收候选解，不泄露标准答案。","对 N=1/3/5 进行 Best-of-N，比较结果、时间和 token 预算。","刻意设计 5 个边缘测试检查错误高分、答案泄漏和验证器漏洞。"],"deliverable":"Verifier 单元测试 + pass@N 曲线 + 投机案例","acceptance":"报告验证器误判率与独立 held-out 测试，明确不是复现 DeepSeek-R1 的训练规模。","model":"Qwen3-0.6B/1.7B 量化推理","memory":"本地 5060；无模型训练","fallback":"先用规则候选器取代生成模型，验证评估体系是否合理。","a40":"极小 GRPO 教学实验仅为选做，且需确认单卡空闲与同事许可。","stretch":"将过程检查和结果检查分离，写出奖励设计对照表。","estimated":"3–4 小时"}},{"n":8,"title":"Context + Inference Serving：系统视角","stage":"SERVE · P1","goal":"理解有效上下文、量化、KV Cache、Prefill/Decode 和推理成本。","readings":["Lost in the Middle: How Language Models Use Long Contexts","RULER: What's the Real Context Size of Your Long-Context Language Models?","Efficient Memory Management for Large Language Model Serving with PagedAttention","AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration","Fast Inference from Transformers via Speculative Decoding"],"core":["Lost in the Middle: How Language Models Use Long Contexts","AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W08","title":"Context & Serving Bench：长度、位置、时延","steps":["在 0.6B/1.7B 本地模型上测试 256/512/1024/2048 tokens 的 TTFT（首 token 时间）和 decode tok/s。","把唯一事实放开头/中间/结尾，测查找准确率；同时采集峰值显存和 KV Cache 变化。","比较合理的量化选项或 KV Cache on/off（仅当后端支持）并注明实现差异。"],"deliverable":"可复现 Benchmark + Latency/VRAM + 位置准确率图","acceptance":"明确 Warmup、Backend、量化格式、并发数为 1 与测量环境，公平对照。","model":"Qwen3-0.6B/1.7B Q4，推理后端自选","memory":"RTX 5060 8GB；Context 由短到长逐级试","fallback":"只用 0.6B、上下文缩至 512/1K 也能完成性能实验；不需要部署 vLLM 服务器。","a40":"","stretch":"读 Continuous Batching/DistServe，写概念模拟而非实现多 GPU 服务。","estimated":"4–5 小时"}},{"n":9,"title":"RAG：召回、可信证据与评测","stage":"RETRIEVE · P1","goal":"掌握 BM25、向量检索、Rerank、证据引用与检索数据边界。","readings":["Dense Passage Retrieval for Open-Domain Question Answering","Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks","Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection","From Local to Global: A Graph RAG Approach to Query-Focused Summarization"],"core":["Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks","Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W09","title":"Paper RAG：带引用的离线知识问答","steps":["准备 30–60 篇自己可合法使用的论文摘要或笔记；按 source_id 建立索引。","比较 BM25 与小 Embedding 模型的 Recall@K，并建立混合检索或轻量 rerank。","固定 30 道问答测证据命中、回答准确率和证据引用匹配；不可信检索文本不作为指令。"],"deliverable":"索引 + Retrieval/Answer Evaluation + 引用样例","acceptance":"有 Gold evidence、Recall@K、来源归属；不存在把检索结果当高优先级系统命令。","model":"bge-small-zh-v1.5、Qwen3-0.6B/1.7B Q4","memory":"CPU 检索 + 5060 生成，通常 <6GB","fallback":"如果生成环节不稳定，先只评估检索；不需要外部大模型 API。","a40":"","stretch":"可选实现检索必要性分类器，模拟 Self-RAG。","estimated":"4–5 小时"}},{"n":10,"title":"Memory：长期状态、版本更新与删除","stage":"MEMORY · P1","goal":"区分 Context、Memory、参数知识和长期记录，理解隐私与过期信息。","readings":["Generative Agents: Interactive Simulacra of Human Behavior","MemGPT: Towards LLMs as Operating Systems","LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory","A-Mem: Agentic Memory for LLM Agents"],"core":["Generative Agents: Interactive Simulacra of Human Behavior","MemGPT: Towards LLMs as Operating Systems"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W10","title":"Memory Vault：有版本、TTL、删除与冲突的记忆助手","steps":["用 SQLite 建立 event/fact/source/time/version 表，提供增删改查与过期控制。","构造 20 段完全合成的跨会话任务，包含事实纠错和撤回记忆。","比较短上下文、全部历史、按需 Memory Retrieval 的正确率与上下文长度。"],"deliverable":"SQLite + memory CRUD + 20 题测试报告","acceptance":"撤回的信息在检索中不再出现；过期事实不会覆盖最新事实；所有测试数据为合成样例。","model":"可选 Qwen3-0.6B/1.7B","memory":"数据库 CPU；生成用 5060","fallback":"先以规则型生成器验证 Memory 行为。","a40":"","stretch":"加入记忆写入信任等级、纠错日志和敏感信息脱敏。","estimated":"3–5 小时"}},{"n":11,"title":"多模态 I：图像、音频与统一表征","stage":"MULTIMODAL · P0","goal":"理解 CLIP、Whisper、ImageBind、LLaVA 的输入/表征/输出差异。","readings":["CLIP: Learning Transferable Visual Models From Natural Language Supervision","Robust Speech Recognition via Large-Scale Weak Supervision","ImageBind: One Embedding Space To Bind Them All","Visual Instruction Tuning (LLaVA)","AudioPaLM: A Large Language Model That Can Speak and Listen"],"core":["CLIP: Learning Transferable Visual Models From Natural Language Supervision","Robust Speech Recognition via Large-Scale Weak Supervision"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W11","title":"Mini Multimodal Desk：图像检索 + 短音频转录","steps":["使用 12–20 张自己拍摄或可授权使用的图片，用 CLIP ViT-B/32 做零样本分类/文本搜索。","取 3 段每段 ≤30 秒的自录中文/英文音频，用 Whisper tiny/base 做 ASR。","对比纯文本描述、图文相似度和转录文本的误差；明确理解 vs 生成的区别。"],"deliverable":"可运行 demo + 每模态误差样例 + 耗时/显存记录","acceptance":"素材许可清晰、报告 CLIP 分类与 ASR 错误案例，不需要跑大型 VLM。","model":"CLIP ViT-B/32 + Whisper tiny/base","memory":"CPU 或 RTX 5060；可逐个加载，降低峰值显存","fallback":"若模型下载受限，使用自己写的图文特征示例/本地音频样本解释表征方式，保留实验设计。","a40":"","stretch":"使用 3–5 张图片 + 问题做轻量视觉问答，VLM 仅可选。","estimated":"4–5 小时"}},{"n":12,"title":"多模态 II：视频、时序与 VLA / World Models","stage":"MULTIMODAL · P0","goal":"理解视频时序、视觉定位、动作 token、世界模型，不在本地复现 OpenVLA 全模型。","readings":["Video-LLaVA: Learning United Visual Representation by Alignment Before Projection","PaLM-E: An Embodied Multimodal Language Model","RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control","OpenVLA: An Open-Source Vision-Language-Action Model","World Models"],"core":["RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control","World Models"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W12","title":"Video-to-Plan：抽帧 + 目标检索 + 状态机动作规划","steps":["使用自录 15–30 秒短视频，用 OpenCV 每秒抽 1 帧/2 帧，标记 3–5 个事件。","用 CLIP 计算片段与文本指令的匹配，比较时间顺序是否影响任务判断。","在模拟场景里用确定性状态机输出下一步动作，记录误检和延迟；不接真实机器人执行。"],"deliverable":"短视频/帧索引 + 时序检索 + 简单动作状态图","acceptance":"能够区分感知、预测、规划、控制；不声称复现 VLA 的真实策略训练。","model":"CLIP + OpenCV + 规则规划器","memory":"CPU / RTX 5060；无需运行 7B OpenVLA","fallback":"如无视频用自己绘制的 8–12 帧模拟序列。","a40":"","stretch":"阅读 Mamba/Jamba/Genie，画出 Transformer、SSM、World Model 的结构对照。","estimated":"4–5 小时"}},{"n":13,"title":"Agent：Tool Use、Workflow 与状态持久化","stage":"AGENT · P1","goal":"理解 ReAct、工具定义、状态机、Traces、工作流与 Agent 的边界。","readings":["ReAct: Synergizing Reasoning and Acting in Language Models","SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering","DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines","ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities","τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains"],"core":["ReAct: Synergizing Reasoning and Acting in Language Models","SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W13","title":"Stateful Sandbox Agent：执行、恢复与回滚","steps":["实现 3 个白名单工具（算术、只读知识查询、模拟任务状态更新），使用 JSON schema 校验参数。","按状态机组织 Plan/Act/Observe/Verify，SQLite 记录 checkpoints、任务 trace 和幂等 action IDs。","注入超时、坏参数和中途断开，验证恢复、重试与副作用去重。"],"deliverable":"Sandbox Agent + Trace + Retry/Resume 演示 + 20 题评测","acceptance":"最多 6 步、有工具 allowlist 和回滚；同一操作重放不会产生双重副作用。","model":"Qwen3-0.6B/1.7B Q4，可加确定性规划器","memory":"RTX 5060 推理 + CPU 工具/数据库","fallback":"若函数调用不稳，改用规则型 Action Planner，先完成工程验收。","a40":"","stretch":"对比纯 Workflow、ReAct Agent、两 Agent 协作的稳定性和 token 开销。","estimated":"4–6 小时"}},{"n":14,"title":"Agent 安全与可靠性：信任边界演习","stage":"SECURITY · P1","goal":"掌握间接 Prompt Injection、Tool 权限和防御评测，建立可靠性意识。","readings":["Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection","InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents","AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents","The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions","ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities"],"core":["Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection","AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W14","title":"Injection Defense Lab：本地合成攻击与拒绝执行测试","steps":["在一个完全模拟的只读 RAG 工具输出里嵌入无害的越权请求（如让 Agent 忽略用户目标），不得触及真实账户。","实现来源标记、系统规则白名单、操作授权与工具输出隔离；阻止访问预先设定的模拟私有字段。","运行 20 个正常任务 + 20 个注入样本，对比成功率、误拒率、越权率与恢复能力。"],"deliverable":"攻击/防护对照 JSONL + 权限矩阵 + 风险登记册","acceptance":"越权率=0（针对给定离线测试）；同时测正常任务正确率，避免一律拒绝伪装安全。","model":"规则检测 + Qwen3-0.6B/1.7B Q4","memory":"CPU/5060；离线沙盒，不对真实服务施加攻击","fallback":"没有 LLM 也可用规则型 Agent + 工具权限单元测试完成基本验收。","a40":"","stretch":"评估工具输出可信度标签对可用性和误拒的影响。","estimated":"3–5 小时"}},{"n":15,"title":"持续学习与 RSI 基础：什么真正被更新？","stage":"IMPROVE · P1","goal":"比较外部记忆、程序策略、参数更新、遗忘与知识编辑。","readings":["Overcoming Catastrophic Forgetting in Neural Networks","Locating and Editing Factual Associations in GPT","TOFU: A Task of Fictitious Unlearning for LLMs","STaR: Bootstrapping Reasoning With Reasoning","Self-Taught Optimizer (STOP): Recursively Self-Improving Code Generation"],"core":["Overcoming Catastrophic Forgetting in Neural Networks","STaR: Bootstrapping Reasoning With Reasoning"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W15","title":"Four-Layer Update：四种更新对象的对照","steps":["在合成双任务 toy 分类器上依次训练 A/B，比较普通训练与 replay 后的旧任务正确率。","在第 10/13 周系统上分别更新 Memory 事实、Prompt/Workflow 配置，与上述参数更新对照。","为每条变更记录可逆性、算力、旧任务退化和独立测试分数，撰写 RSI 边界分析。"],"deliverable":"toy continual-learning notebook + 4 层改进矩阵 + forgetting 曲线","acceptance":"明确区别模型参数更新与 Memory/Prompt 改写；Replay 测试不使用未来数据。","model":"Toy MLP/小字符 LM + 先前 Agent","memory":"CPU 或 5060；模型可小于 1M 参数","fallback":"若 toy 模型难收敛，选更简单的两类分类任务，仍测旧/新任务保留率。","a40":"非必需；无需为 Continual Learning 申请共享 A40。","stretch":"阅读 ROME/MEMIT/SEAL，比较局部事实编辑与全面微调的风险。","estimated":"4–5 小时"}},{"n":16,"title":"RSI：受控自优化与完整生命周期验收","stage":"IMPROVE · P0","goal":"将数据→模型→检索→Agent→反馈串成可评估系统，同时防止奖励投机。","readings":["Self-Adapting Language Models (SEAL)","Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents","Automated Design of Agentic Systems","AFlow: Automating Agentic Workflow Generation","Holistic Evaluation of Language Models (HELM)","AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery"],"core":["Self-Adapting Language Models (SEAL)","Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents"],"days":["读主论文，列出研究问题","完成关键概念笔记与最小复现","实现一个可靠的基线","加入对照或消融实验","完成评测、错误分析与提交"],"project":{"id":"V2-W16","title":"Mini Evolution v2：可回滚的自动改进闭环","steps":["固定 30 条开发集 + 30 条隔离测试集；只允许候选系统修改 Prompt、检索阈值、行动步数与评分权重。","搜索至少 5 种候选配置，留存完整 Trace、版本、验证指标与成本，在开发集选择后只测一次独立测试。","整合第 9/10/13 周两个以上组件，提交成功率、延迟、Token、拒绝率、退化及回滚统计。"],"deliverable":"版本化候选档案 + 评测脚本 + 3–5 页研究报告","acceptance":"有隔离测试集、可复现实验命令、回滚和安全边界；不声称实现了开放式 RSI。","model":"Qwen3-0.6B/1.7B Q4 + SQLite + BM25","memory":"RTX 5060 必做，默认无模型权重自更新","fallback":"进度不足时，先选单一工具 Agent + Prompt Config Search；模型可换成确定性基线。","a40":"有许可且单张空闲时可将成功轨迹筛选后尝试 0.6B 小规模 LoRA；需单独量化旧任务退化。","stretch":"用 Mamba/World Model 的结构作为未来路线调研，不作为课程通过条件。","estimated":"5–7 小时"}}],"edges":[["13","01"],["13","02"],["13","03"],["01","02"],["01","14"],["02","03"],["02","04"],["03","14"],["03","15"],["14","04"],["04","05"],["04","18"],["05","06"],["05","09"],["05","10"],["06","07"],["06","15"],["06","08"],["07","08"],["07","09"],["08","09"],["11","20"],["11","09"],["09","16"],["16","10"],["16","17"],["08","18"],["18","10"],["10","12"],["09","12"],["17","12"],["19","03"],["19","20"],["20","09"],["15","09"],["13","17"]],"lifecycle":[{"id":"D","label":"01 / DATA","title":"数据获取与治理","subtitle":"Tokenization · 去重 · 数据质量","moduleIds":["13","01"],"weeks":[1,2],"key":"从合规数据源到可训练 Token：清洗、分片、词表、去重和防泄漏。","artifact":"Tokenizer 与 Data Audit"},{"id":"P","label":"02 / PRETRAIN","title":"架构与预训练","subtitle":"GPT · Scaling · Optimization","moduleIds":["01","02","03","14","19"],"weeks":[2,3,4],"key":"选架构、数据与计算预算，用稳定优化器训练并评估模型。","artifact":"MiniGPT · Scaling · Training Profile"},{"id":"T","label":"03 / POSTTRAIN","title":"后训练与能力塑造","subtitle":"SFT · LoRA · DPO · Reasoning","moduleIds":["04","05"],"weeks":[5,6,7],"key":"通过指令与偏好数据塑造行为，用推理训练和可验证反馈提升任务表现。","artifact":"LoRA · Reasoning · Verifier"},{"id":"S","label":"04 / SERVE","title":"部署与信息供给","subtitle":"Inference · Context · RAG · Memory","moduleIds":["15","06","07","08"],"weeks":[8,9,10],"key":"控制量化与 KV Cache，组织上下文、检索和长时记忆。","artifact":"Latency Bench · Paper RAG · Memory Vault"},{"id":"A","label":"05 / ACT","title":"感知、Agent 与环境","subtitle":"Image · Audio · Video · Workflow","moduleIds":["11","20","09","16"],"weeks":[11,12,13,14],"key":"输入从纯文本扩展到视频和音频，使用工具，持久化任务状态，处理异常。","artifact":"Multimodal Desk · Video-to-Plan · Stateful Agent"},{"id":"I","label":"06 / IMPROVE","title":"评测、反馈与持续改进","subtitle":"Continual · RSI · Safety · Evaluation","moduleIds":["18","10","12","17"],"weeks":[14,15,16],"key":"将反馈转化为可验证的更新：对比参数、记忆、程序和系统级优化。","artifact":"Defensive Agent · Four-Layer Update · Mini Evolution"}],"crosscuts":[{"name":"MULTIMODAL","label":"多模态 / 图像·音频·视频·行动","module":"11","detail":"贯穿数据、建模、部署与 Agent"},{"name":"SECURITY","label":"安全 / Prompt Injection·工具权限","module":"17","detail":"贯穿检索、执行与自优化"},{"name":"EVALUATION","label":"评测 / 可靠性·泄漏·统计","module":"12","detail":"贯穿每一次模型和系统更新"}]}</script>
+<script>
+"use strict";
+const DATA=JSON.parse(document.getElementById("atlas-data").textContent);
+
+const STORE="llm-atlas-v3-study";
+const byId=Object.fromEntries(DATA.papers.map(p=>[p.id,p]));
+const byTitle=Object.fromEntries(DATA.papers.map(p=>[p.title,p]));
+const modulesById=Object.fromEntries(DATA.modules.map(m=>[m.id,m]));
+const projectToWeek=Object.fromEntries(DATA.weeks.map(w=>[w.project.id,w]));
+const literatureByWeek=Object.fromEntries(DATA.weeks.map(w=>[w.n,DATA.papers.filter(p=>p.week===w.n)]));
+const literatureExtras=DATA.papers.filter(p=>p.week===null);
+const readingAssignments=Object.fromEntries(DATA.papers.map(p=>[p.id,p.assignedWeeks]));
+
+const pos={
+ "13":[11,35],"01":[30.5,35],"02":[50,35],"03":[69.5,35],"14":[89,35],
+ "04":[11,190],"05":[30.5,190],"06":[50,190],"15":[69.5,190],"11":[89,190],
+ "07":[11,345],"08":[30.5,345],"09":[50,345],"16":[69.5,345],"17":[89,345],
+ "18":[11,500],"10":[30.5,500],"12":[50,500],"19":[69.5,500],"20":[89,500]
+};
+
+function localToday(){
+ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+
+const defaultState=()=>({startDate:localToday(),hours:8,hardware:"local",read:[],completed:[]});
+let state=defaultState();
+function applyStored(s){
+ if(!s||typeof s!=="object")return;
+ if(/^\d{4}-\d{2}-\d{2}$/.test(s.startDate||""))state.startDate=s.startDate;
+ if([4,6,8,12].includes(Number(s.hours)))state.hours=Number(s.hours);
+ state.hardware=s.hardware==="a40"?"a40":"local";
+ state.read=[...new Set((Array.isArray(s.read)?s.read:[]).filter(id=>!!byId[id]))];
+ state.completed=[...new Set((Array.isArray(s.completed)?s.completed:[]).filter(id=>!!projectToWeek[id]))];
+}
+try{
+ const raw=localStorage.getItem(STORE);
+ if(raw)applyStored(JSON.parse(raw));
+}catch(e){ /* Some browsers restrict storage for local HTML files. */ }
+
+let selectedLife=0;
+
+let selectedModule=null, paperFilter="all",paperPreset="all",libraryView="week",openWeeks=new Set([1]);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDate=d=>`${d.getMonth()+1}月${d.getDate()}日`;
+function parseLocal(s){const z=String(s||"").split("-").map(Number);return new Date(z[0]||2026,(z[1]||1)-1,z[2]||1);}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function ymd(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")}
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){}}
+function notify(message){let el=$("#toast");el.textContent=message;el.classList.add("show");clearTimeout(notify.t);notify.t=setTimeout(()=>el.classList.remove("show"),2600)}
+function updateProgress(){
+ const r=state.read.length,c=state.completed.length;
+ $("#sideProgress").innerHTML=`${r} <span style="font-size:12px;color:#93a7c0">/ ${DATA.papers.length}</span>`;
+ $("#sideBar").style.width=`${r/DATA.papers.length*100}%`;
+ $("#sideProjects").textContent=`项目：${c} / ${DATA.weeks.length} 已完成`;
+ $("#paperReadRate").textContent=`已读 ${r} / ${DATA.papers.length} · 完成项目 ${c}/${DATA.weeks.length}`;
+}
+function toggleRead(id,checked){
+ if(!byId[id])return;
+ state.read=checked?[...new Set([...state.read,id])]:state.read.filter(x=>x!==id);
+ persist();updateProgress();renderPapers();renderWeeks();
+}
+function toggleProject(id,checked){
+ if(!projectToWeek[id])return;
+ state.completed=checked?[...new Set([...state.completed,id])]:state.completed.filter(x=>x!==id);
+ persist();updateProgress();renderWeeks();
+}
+
+function filterToModule(mid){
+ if(!modulesById[mid])return;
+ $("#moduleFilter").value=mid;paperFilter=mid;paperPreset="all";libraryView="module";$("#libraryView").value="module";
+ $("#levelFilter").value="all";$("#priorityFilter").value="all";$("#paperSearch").value="";
+ syncTabs();renderPapers();$("#papers").scrollIntoView({behavior:"smooth"});
+}
+function renderLifecycle(){
+ $("#lifeFlow").innerHTML=DATA.lifecycle.map((x,i)=>`<button type="button" class="life-step ${i===selectedLife?"on":""}" data-life="${i}" aria-pressed="${i===selectedLife?"true":"false"}">
+  <div class="index">${esc(x.label)}</div><h3>${esc(x.title)}</h3><p>${esc(x.subtitle)}</p></button>`).join("");
+ $("#crosscuts").innerHTML=DATA.crosscuts.map(x=>`<button type="button" class="crosscut" data-crosscut="${x.module}" title="${esc(x.detail)}">
+   <div><div class="cross-name">${esc(x.name)}</div><div class="cross-label">${esc(x.label)}</div></div><span style="margin-left:auto">↗</span></button>`).join("");
+ const x=DATA.lifecycle[selectedLife];
+ const weeks=x.weeks.map(n=>DATA.weeks.find(w=>w.n===n)).filter(Boolean);
+ $("#lifeDetail").innerHTML=`<div><div class="keylabel">LIFECYCLE · ${esc(x.label)}</div><h3>${esc(x.title)}</h3>
+ <p class="muted">${esc(x.key)}</p><div class="life-actions">${x.moduleIds.map(id=>`<button class="tag" type="button" data-life-module="${id}">${esc(modulesById[id].name)} ↗</button>`).join("")}</div></div>
+ <div><div class="keylabel">MILESTONES</div><p class="muted" style="margin-top:6px">
+  对应周次：${weeks.map(w=>`<button type="button" class="paper-link" data-life-week="${w.n}">W${String(w.n).padStart(2,"0")} ${esc(w.title)}</button>`).join("<br>")}
+  </p><p class="muted" style="margin-top:9px">典型交付：${esc(x.artifact)}</p></div>`;
+}
+function initLifecycle(){
+ $("#lifeFlow").addEventListener("click",ev=>{
+  const b=ev.target.closest("[data-life]");if(!b)return;
+  selectedLife=Number(b.dataset.life);renderLifecycle();
+ });
+ $("#crosscuts").addEventListener("click",ev=>{
+  const b=ev.target.closest("[data-crosscut]");if(b)filterToModule(b.dataset.crosscut)
+ });
+ $("#lifeDetail").addEventListener("click",ev=>{
+  const m=ev.target.closest("[data-life-module]"),w=ev.target.closest("[data-life-week]");
+  if(m)filterToModule(m.dataset.lifeModule);
+  if(w)goToWeek(Number(w.dataset.lifeWeek))
+ });
+ renderLifecycle();
+}
+
+function initGraph(){
+ const n=$("#graphNodes");
+ n.innerHTML=DATA.modules.map(m=>{
+  const p=pos[m.id];const count=DATA.papers.filter(x=>x.modules.includes(m.id)).length;
+  return `<button type="button" class="graph-node" data-graph-mod="${m.id}" data-stage="${esc(m.stage)}" style="left:${p[0]}%;top:${p[1]}px" aria-label="查看 ${esc(m.name)} 模块">
+     <div class="node-top"><span>MODULE ${m.id}</span><span>${count} PAPERS</span></div>
+     <div class="node-name">${esc(m.short)}</div><div class="node-meta">${esc(m.name)}</div>
+   </button>`
+ }).join("");
+ n.addEventListener("click",ev=>{const b=ev.target.closest("[data-graph-mod]");if(!b)return;selectedModule=b.dataset.graphMod;renderGraphInfo();drawEdges()});
+ $("#resetGraph").addEventListener("click",()=>{selectedModule=null;renderGraphInfo();drawEdges()});
+ renderGraphInfo();
+ requestAnimationFrame(drawEdges);
+ window.addEventListener("resize",()=>requestAnimationFrame(drawEdges));
+}
+function drawEdges(){
+ const canvas=$("#graphCanvas"),svg=$("#graphLines"),cr=canvas.getBoundingClientRect();
+ const def=svg.querySelector("defs");svg.replaceChildren(def);
+ const active=new Set();
+ if(selectedModule) for(const [a,b] of DATA.edges)if(a===selectedModule||b===selectedModule){active.add(a);active.add(b)}
+ const nodes={};
+ for(const el of canvas.querySelectorAll(".graph-node")){
+  const r=el.getBoundingClientRect();nodes[el.dataset.graphMod]={x:r.left-cr.left,y:r.top-cr.top,w:r.width,h:r.height};
+  el.classList.toggle("selected",el.dataset.graphMod===selectedModule);
+  el.classList.toggle("dim",!!selectedModule&&!active.has(el.dataset.graphMod)&&el.dataset.graphMod!==selectedModule);
+ }
+ svg.setAttribute("viewBox",`0 0 ${cr.width} ${cr.height}`);
+ for(const [a,b] of DATA.edges){
+  const p=nodes[a],q=nodes[b];if(!p||!q)continue;
+  const sameRow=Math.abs(p.y-q.y)<50;
+  let x1,y1,x2,y2,d;
+  if(sameRow){x1=p.x+p.w-10;y1=p.y+p.h*.5;x2=q.x+6;y2=q.y+q.h*.5;
+    d=`M ${x1} ${y1} C ${x1+25} ${y1-26},${x2-25} ${y2+26},${x2} ${y2}`;
+  }else{x1=p.x+p.w*.5;y1=p.y+p.h-7;x2=q.x+q.w*.5;y2=q.y+5;
+    const dy=Math.max(20,Math.abs(y2-y1)*.48);
+    d=`M ${x1} ${y1} C ${x1} ${y1+dy},${x2} ${y2-dy},${x2} ${y2}`;
+  }
+  const path=document.createElementNS("http://www.w3.org/2000/svg","path");
+  path.setAttribute("d",d);
+  path.setAttribute("class","graph-edge"+(selectedModule?(a===selectedModule||b===selectedModule?" hi":" dim"):""));
+  svg.appendChild(path);
+ }
+}
+function renderGraphInfo(){
+ const m=selectedModule?modulesById[selectedModule]:null;
+ if(!m){
+   $("#graphInfo").innerHTML=`<div><h3>先构建模型地基，再理解智能体与持续改进</h3><p>这张图涵盖 20 个领域：数据/Transformer/GPT/Scaling → 训练、对齐与推理 → Context/RAG/Memory/Inference → 多模态与 Agent → 安全/持续学习/RSI。评测贯穿全部阶段；多模态为环境交互提供感知能力。</p></div><div><div class="keylabel">HOW TO USE</div><div class="keyvalue">点击上方任一模块节点 → 阅读核心问题 → 跳转论文或项目。</div><button type="button" class="go-btn" onclick="document.getElementById('papers').scrollIntoView({behavior:'smooth'})">进入完整论文库 →</button></div>`;
+ }else{
+   const ps=DATA.papers.filter(p=>p.modules.includes(m.id));
+   const top=ps.filter(p=>p.focus18).slice(0,2);
+   const chosen=top.length?top:ps.filter(p=>p.level!=="拓展").slice(0,2);
+   const week=DATA.weeks.find(w=>w.readings.some(t=>ps.some(p=>p.title===t)));
+   $("#graphInfo").innerHTML=`<div><div class="keylabel">MODULE ${m.id} · ${esc(m.stage)}</div><h3>${esc(m.name)}</h3><p>${esc(m.desc)}<br><b>核心问题：</b>${esc(m.question)}</p></div>
+   <div><div class="keylabel">RECOMMENDED ENTRIES</div>
+   ${chosen.map(p=>`<div class="keyvalue">· <a class="paper-link" href="${p.url}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a></div>`).join("")}
+   <button class="go-btn" type="button" data-open-module="${m.id}">筛选这 ${ps.length} 篇文献 →</button>
+   ${week?`<button class="go-btn" type="button" data-to-week="${week.n}" style="margin-left:14px">查看第 ${week.n} 周实践 →</button>`:""}</div>`;
+ }
+ $("#graphInfo").querySelectorAll("[data-open-module]").forEach(b=>b.addEventListener("click",()=>{
+  filterToModule(b.dataset.openModule)
+ }));
+ $("#graphInfo").querySelectorAll("[data-to-week]").forEach(b=>b.addEventListener("click",()=>goToWeek(Number(b.dataset.toWeek))));
+}
+function setControls(){
+ const moduleSelect=$("#moduleFilter");
+ moduleSelect.innerHTML='<option value="all">全部模块</option>'+DATA.modules.map(m=>`<option value="${m.id}">${m.id} · ${esc(m.name)}</option>`).join("");
+ $("#startDate").value=state.startDate;
+ $("#hoursPerWeek").value=String(state.hours);
+ $("#hardwareMode").value=state.hardware;
+ $("#startDate").addEventListener("change",e=>{if(!e.target.value)return;state.startDate=e.target.value;persist();renderWeeks()});
+ $("#hoursPerWeek").addEventListener("change",e=>{state.hours=Number(e.target.value);persist();renderWeeks()});
+ $("#hardwareMode").addEventListener("change",e=>{state.hardware=e.target.value;persist();renderWeeks()});
+ $("#libraryView").addEventListener("change",e=>{libraryView=e.target.value;renderPapers()});
+ $("#moduleFilter").addEventListener("change",e=>{paperFilter=e.target.value;renderPapers()});
+ $("#levelFilter").addEventListener("change",renderPapers);
+ $("#priorityFilter").addEventListener("change",renderPapers);
+ $("#paperSearch").addEventListener("input",renderPapers);
+ document.querySelectorAll(".filter-tab").forEach(b=>b.addEventListener("click",()=>{
+  paperPreset=b.dataset.preset;syncTabs();renderPapers()
+ }));
+ $("#weekList").addEventListener("click",ev=>{
+  const locate=ev.target.closest("[data-locate-id]");
+  if(locate){locatePaper(locate.dataset.locateId);return;}
+  const cp=ev.target.closest("[data-copy-accept]");
+  if(cp){
+   const w=DATA.weeks.find(x=>x.n===Number(cp.dataset.copyAccept));
+   if(w){
+    const p=w.project;
+    copyText(`LLM Atlas V3 | 第 ${w.n} 周验收：${w.title}\n精读论文：\n${w.core.map(x=>"- "+x).join("\n")}\n\n项目：${p.title}\n交付物：${p.deliverable}\n验收：${p.acceptance}\n资源：${p.memory}\n\n提交内容：代码 / 运行命令 / 对照实验 / 结果图 / 失败分析 / 我的问题`);
+   }return;
+  }
+  const b=ev.target.closest("[data-week-toggle]");if(!b)return;
+  const n=Number(b.dataset.weekToggle);if(openWeeks.has(n))openWeeks.delete(n);else openWeeks.add(n);renderWeeks();
+ });
+ $("#weekList").addEventListener("change",ev=>{
+  if(ev.target.matches("[data-week-paper]"))toggleRead(ev.target.dataset.weekPaper,ev.target.checked);
+  if(ev.target.matches("[data-project-done]"))toggleProject(ev.target.dataset.projectDone,ev.target.checked);
+ });
+ $("#paperGroups").addEventListener("change",ev=>{
+  if(ev.target.matches("[data-read-id]"))toggleRead(ev.target.dataset.readId,ev.target.checked);
+ });
+ $("#paperGroups").addEventListener("click",ev=>{
+  const button=ev.target.closest("[data-visit-week]");
+  if(button)goToWeek(Number(button.dataset.visitWeek));
+ });
+ $("#paperJumpbar").addEventListener("click",ev=>{
+  const button=ev.target.closest("[data-jump-group]");
+  if(!button)return;
+  document.getElementById(`bib-${button.dataset.jumpGroup}`)?.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+ $("#goCurrent").addEventListener("click",()=>{
+  const today=parseLocal(localToday()),base=parseLocal(state.startDate);
+  const diff=Math.round((Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())-Date.UTC(base.getFullYear(),base.getMonth(),base.getDate()))/86400000);
+  let w=Math.floor(diff/7)+1;
+  if(!Number.isFinite(w)||w<1||w>DATA.weeks.length)w=1;
+  goToWeek(w);
+ });
+ $("#calendarExport").addEventListener("click",exportIcs);
+ $("#planExport").addEventListener("click",copyPlan);
+ $("#saveStateTop").addEventListener("click",exportJson);
+ $("#exportBackup").addEventListener("click",exportJson);
+ $("#importBackup").addEventListener("click",()=>$("#importFile").click());
+ $("#importFile").addEventListener("change",importJson);
+ $("#copySetup").addEventListener("click",()=>copyText($("#installSnippet").textContent));
+ $("#officialSources").innerHTML=DATA.meta.gpuSources.map(s=>`<a class="source-link" href="${s.url}" target="_blank" rel="noopener noreferrer">${esc(s.name)} ↗</a>`).join("");
+}
+function syncTabs(){document.querySelectorAll(".filter-tab").forEach(b=>b.classList.toggle("on",b.dataset.preset===paperPreset))}
+function paperItem(p,mode,groupId){
+ const reviews=p.assignedWeeks.filter(n=>n!==p.week);
+ const isCore=p.coreWeeks.length>0;
+ const scheduled=p.assignedWeeks.length>0;
+ const weekTags=scheduled?p.assignedWeeks.map(n=>`W${String(n).padStart(2,"0")}`).join("、"):"未排课";
+ const rowId=mode==="week"?`id="paper-${p.id}"`:`id="paper-${p.id}-${groupId}"`;
+ const modLabel=p.modules.map(mid=>modulesById[mid]?.name||mid).join(" · ");
+ return `<div ${rowId} class="paper-item" data-paper-id="${p.id}">
+  <input class="paper-check" type="checkbox" data-read-id="${p.id}" ${state.read.includes(p.id)?"checked":""} aria-label="已读：${esc(p.title)}">
+  <div>
+   <div class="paper-title">
+     <a class="exact-paper-title" href="${p.url}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a>
+     ${p.focus18?'<span class="focus-mark">CORE 18</span>':""}
+     ${isCore?'<span class="core-flag">周精读</span>':""}
+     ${p.new?'<span class="level-mark deep">补充文献</span>':""}
+     <span class="level-mark ${p.level==="精读"?"deep":p.level==="拓展"?"expand":""}">${esc(p.level)}</span>
+   </div>
+   <div class="paper-why">${esc(p.why)}</div>
+   <div class="paper-crossref"><b>${p.id}</b> · ${esc(modLabel)} · ${esc(weekTags)}
+     ${reviews.length?`<span class="review-flag">复习于 ${reviews.map(n=>`W${String(n).padStart(2,"0")}`).join("、")}</span>`:""}
+   </div>
+  </div>
+  <div class="paper-side"><span>${p.year} · ${p.priority}</span>
+   ${scheduled?`<button type="button" class="paper-link" data-visit-week="${p.week}">查看 W${String(p.week).padStart(2,"0")} ↗</button>`:"<span>专题拓展</span>"}
+  </div>
+ </div>`;
+}
+function renderPapers(){
+ const q=$("#paperSearch").value.toLowerCase().trim();
+ const level=$("#levelFilter").value, priority=$("#priorityFilter").value;
+ const matching=DATA.papers.filter(p=>{
+  if(paperFilter!=="all"&&!p.modules.includes(paperFilter))return false;
+  if(level!=="all"&&p.level!==level)return false;
+  if(priority!=="all"&&p.priority!==priority)return false;
+  if(paperPreset==="focus"&&!p.focus18)return false;
+  if(paperPreset==="new"&&!p.new)return false;
+  if(paperPreset==="unread"&&state.read.includes(p.id))return false;
+  if(paperPreset==="read"&&!state.read.includes(p.id))return false;
+  const wNames=p.assignedWeeks.map(n=>DATA.weeks[n-1]?.title||"").join(" ");
+  const hay=`${p.title} ${p.year} ${p.why} ${p.priority} ${p.id} ${wNames} ${p.modules.map(m=>modulesById[m]?.name).join(" ")}`.toLowerCase();
+  return !q||hay.includes(q);
+ });
+ const matchedSet=new Set(matching.map(p=>p.id));
+ $("#paperResults").textContent=`匹配 ${matching.length} / ${DATA.papers.length} 篇独立文献 · ${libraryView==="week"?"按课程周次严格对应":"按知识模块展示（跨模块论文会重复展示）"}`;
+ if(!matching.length){
+  $("#paperGroups").innerHTML='<div class="empty-state">没有匹配的文献。可清除关键字或调整筛选条件。</div>';
+  $("#paperJumpbar").innerHTML="";
+  return;
+ }
+ if(libraryView==="week"){
+  const groups=DATA.weeks.map(w=>({
+   id:`w${w.n}`,label:`W${String(w.n).padStart(2,"0")}`,
+   title:w.title,extra:`${w.core.length} 篇精读 · ${w.readings.length} 个阅读安排`,
+   papers:literatureByWeek[w.n].filter(p=>matchedSet.has(p.id))
+  }));
+  groups.push({id:"extra",label:"EXTRA",title:"专题拓展 · 不在 16 周必修清单中",
+    extra:`${literatureExtras.length} 篇自由探索`,papers:literatureExtras.filter(p=>matchedSet.has(p.id))});
+  const active=groups.filter(g=>g.papers.length);
+  $("#paperJumpbar").innerHTML=`<span class="paper-jump-label">周次导航</span>`+
+   active.map(g=>`<button type="button" class="paper-jump-chip" data-jump-group="${g.id}">${g.label} <small>${g.papers.length}</small></button>`).join("");
+  $("#paperGroups").innerHTML=active.map(g=>`<section class="paper-group" id="bib-${g.id}">
+   <div class="group-header">
+    <span class="module-chip">${g.label}</span>
+    <b>${esc(g.title)}</b><small>${esc(g.extra)} · 本组 ${g.papers.length} 篇不重复论文</small>
+   </div>
+   ${g.papers.map(p=>paperItem(p,"week",g.id)).join("")}
+  </section>`).join("");
+ }else{
+  $("#paperJumpbar").innerHTML="";
+  const groups=DATA.modules.filter(m=>matching.some(p=>p.modules.includes(m.id)));
+  $("#paperGroups").innerHTML=groups.map(m=>{
+   const ps=matching.filter(p=>p.modules.includes(m.id));
+   return `<section class="paper-group" id="bib-mod-${m.id}">
+    <div class="group-header"><span class="module-chip">${m.id}</span>
+     <b>${esc(m.name)}</b><small>${ps.length} 篇 · ${esc(m.priority)}</small></div>
+    ${ps.map(p=>paperItem(p,"module",m.id)).join("")}
+   </section>`;
+  }).join("");
+ }
+}
+function locatePaper(id){
+ if(!byId[id])return;
+ libraryView="week";$("#libraryView").value="week";
+ paperPreset="all";paperFilter="all";$("#moduleFilter").value="all";
+ $("#priorityFilter").value="all";$("#levelFilter").value="all";$("#paperSearch").value="";
+ syncTabs();renderPapers();
+ const el=document.getElementById(`paper-${id}`);
+ if(el){
+  el.classList.add("paper-focus");
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  setTimeout(()=>el.classList.remove("paper-focus"),3000);
+ }
+}
+function renderWeeks(){
+ const start=parseLocal(state.startDate),today=parseLocal(localToday()),h=state.hours;
+ const scheduled=new Set(DATA.weeks.flatMap(w=>w.readings)).size;
+ const coreTotal=new Set(DATA.weeks.flatMap(w=>w.core)).size;
+ const readHours=h===4?"重点精读 1h · 最小项目 2h · 评测 1h":h===6?"重点精读 1.5h · 项目 3.5h · 评测 1h":h===8?"精读/泛读 3h · 项目 4h · 复盘 1h":"精读/泛读 4–5h · 项目 5–6h · 复盘 1–2h";
+
+ $("#planHint").innerHTML=`<b>当前节奏：每周 ${h} 小时 × ${DATA.weeks.length} 周 ≈ ${h*DATA.weeks.length} 小时。</b> 建议：${readHours}。${h<=6?"时间紧张时先精读每周 1 篇，并完成最小可行项目；其余论文泛读。":"优先完成每周“本周精读”与客观验收，再扩大阅读范围。"}<br>
+ <span>16 周共安排 ${scheduled} 篇不同的正式课程文献，其中 ${coreTotal} 篇为每周精读；${DATA.papers.length-scheduled} 篇为拓展阅读。课程标题与后文文献库一一对应，W07 与 W14 各有 1 篇跨周复习。${state.hardware==="a40"?"可选显示单卡 A40 实验。":"必做实验均面向本地 RTX 5060 / CPU。"}</span>`;
+ $("#weekList").innerHTML=DATA.weeks.map(w=>{
+  const d1=addDays(start,(w.n-1)*7),d2=addDays(start,w.n*7-1);
+  const current=today>=d1&&today<=d2;
+  const completed=state.completed.includes(w.project.id);
+  const readDone=w.readings.filter(t=>state.read.includes(byTitle[t].id)).length;
+  const coreDone=w.core.filter(t=>state.read.includes(byTitle[t].id)).length;
+  const p=w.project,open=openWeeks.has(w.n);
+  const dateLabel=`${fmtDate(d1)} – ${fmtDate(d2)}`;
+  const dayOffsets=[0,1,2,4,6];
+  return `<article id="week-${w.n}" class="week-card ${open?"open":""} ${current?"current":""}">
+  <button type="button" class="week-head" data-week-toggle="${w.n}" aria-expanded="${open?"true":"false"}" aria-controls="week-content-${w.n}">
+    <div class="week-index"><div><strong>${String(w.n).padStart(2,"0")}</strong><span>WEEK</span></div></div>
+    <div class="week-main">
+      <div class="meta">${esc(w.stage)} · ${dateLabel} ${current?'<span class="tag green">本周</span>':""}</div>
+      <h3>${esc(w.title)}</h3><div class="subtitle">${esc(w.goal)}</div>
+    </div>
+    <div class="week-right"><b>精读 ${coreDone}/${w.core.length}</b>${completed?"✓ 已验收":`共已读 ${readDone}/${w.readings.length}`}</div>
+    <span class="week-chevron" aria-hidden="true">⌄</span>
+  </button>
+  ${open?`<div class="week-body" id="week-content-${w.n}"><div class="week-body-inner">
+   <div>
+    <div class="week-subheading"><span>本周论文 · ${w.readings.length} 篇</span><span style="font-size:10px;color:#90a0b0">${w.core.length} 篇精读，其余泛读</span></div>
+    <div class="week-papers">${w.readings.map(t=>{
+      const x=byTitle[t],isCore=w.core.includes(t);
+      const review=x.assignedWeeks[0]!==w.n;
+      return `<div class="week-paper" data-week-reading-id="${x.id}">
+       <input type="checkbox" data-week-paper="${x.id}" ${state.read.includes(x.id)?"checked":""} aria-label="标记已读：${esc(x.title)}">
+       <div>${isCore?'<span class="core-flag">本周精读</span>':""}${review?'<span class="review-flag">复习</span>':""}
+         <a class="exact-paper-title" href="${x.url}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>
+         <div class="year">论文 ${x.id} · ${x.year} · ${esc(x.level)}${x.focus18?" · 核心18":""}
+         <button type="button" class="jump-paper" data-locate-id="${x.id}">在文献库中定位 ↘</button></div></div>
+       <span style="color:#96a3b2;font-size:10px">↗</span></div>`;
+    }).join("")}</div>
+    <div class="week-timeline">
+      <h5>建议周内节奏 · 日期随开始日变化</h5>
+      ${w.days.map((s,i)=>`<div class="day-mark"><div class="day-num">D${dayOffsets[i]+1} · ${fmtDate(addDays(d1,dayOffsets[i]))}</div><div>${esc(s)}</div></div>`).join("")}
+    </div>
+    <div style="font-size:11px;color:#8290a3;margin-top:12px">本周核心目标：${esc(w.goal)}</div>
+   </div>
+   <div>
+    <div class="week-subheading"><span>本周小项目</span><span style="font-size:10px;color:#90a0b0">${esc(p.estimated)}</span></div>
+    <div class="project-box">
+     <h4>${esc(p.title)}</h4>
+     <div class="tagrow"><span class="tag green">本地必做</span><span class="tag blue">${esc(p.model)}</span></div>
+     <ol class="project-steps">${p.steps.map(step=>`<li>${esc(step)}</li>`).join("")}</ol>
+     <div class="project-detail"><b>交付物：</b>${esc(p.deliverable)}</div>
+     <div class="project-detail"><b>验收标准：</b>${esc(p.acceptance)}</div>
+     <div class="project-detail"><b>设备预算：</b>${esc(p.memory)}</div>
+     <div class="project-detail"><b>资源不足时：</b>${esc(p.fallback)}</div>
+     ${p.stretch?`<div class="project-detail"><b>研究拓展：</b>${esc(p.stretch)}</div>`:""}
+     ${p.a40&&state.hardware==="a40"?`<div class="project-detail optional"><b>单卡 A40 选做：</b>${esc(p.a40)}</div>`:""}
+     <div class="flex-actions" style="margin-top:13px"><button class="small-btn" type="button" data-copy-accept="${w.n}">复制本周验收清单 ↗</button></div>
+     <label class="project-done"><input type="checkbox" data-project-done="${p.id}" ${completed?"checked":""}> 交付物已通过自检 / 验收</label>
+    </div>
+   </div>
+  </div></div>`:""}
+ </article>`;
+ }).join("");
+}
+function goToWeek(n){
+ openWeeks.add(n);renderWeeks();
+ document.getElementById(`week-${n}`)?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function downloadText(name,content,mime){
+ const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function exportJson(){
+ const exportData={format:"llm-atlas-progress",version:3,exportedAt:new Date().toISOString(),state};
+ downloadText(`LLM_Atlas_V3_progress_${localToday()}.json`,JSON.stringify(exportData,null,2),"application/json;charset=utf-8");notify("进度已导出为 JSON");
+}
+
+
+async function importJson(ev){
+ const file=ev.target.files[0];if(!file)return;
+ try{
+  const payload=JSON.parse(await file.text());
+  if(payload.format!=="llm-atlas-progress"||payload.version!==3||!payload.state)throw Error("备份版本不匹配");
+  state=defaultState();applyStored(payload.state);
+  persist();$("#startDate").value=state.startDate;$("#hoursPerWeek").value=String(state.hours);
+  $("#hardwareMode").value=state.hardware;
+  updateProgress();renderWeeks();renderPapers();notify("学习进度已恢复");
+ }catch(e){alert("导入失败：请选择本版 LLM Atlas 3.0 导出的 JSON 备份。")}
+ ev.target.value="";
+}
+
+function icsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/\n/g,"\\n").replace(/;/g,"\\;").replace(/,/g,"\\,")}
+function exportIcs(){
+ const base=parseLocal(state.startDate);const now=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z");
+ const evts=DATA.weeks.map(w=>{
+  const date=addDays(base,w.n*7-1);
+  const next=addDays(date,1);
+  return ["BEGIN:VEVENT",`UID:llm-atlas-week-${w.n}-${state.startDate}@local`, `DTSTAMP:${now}`,
+    `DTSTART;VALUE=DATE:${ymd(date).replace(/-/g,"")}`,`DTEND;VALUE=DATE:${ymd(next).replace(/-/g,"")}`,
+    `SUMMARY:${icsEsc(`LLM Atlas 第${w.n}周验收：${w.title}`)}`,
+    `DESCRIPTION:${icsEsc(`项目：${w.project.title}\n交付物：${w.project.deliverable}\n完成标准：${w.project.acceptance}`)}`,
+    "END:VEVENT"].join("\r\n")
+ }).join("\r\n");
+ downloadText("LLM_Atlas_16week_milestones.ics","BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//LLM Atlas//Self-study Schedule//ZH\r\nCALSCALE:GREGORIAN\r\n"+evts+"\r\nEND:VCALENDAR\r\n","text/calendar;charset=utf-8");notify("已导出 16 个周验收日历事件");
+}
+async function copyText(content){
+ try{await navigator.clipboard.writeText(content);notify("已复制到剪贴板")}
+ catch(e){const t=document.createElement("textarea");t.value=content;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();notify("已尝试复制内容")}
+}
+function copyPlan(){
+ const base=parseLocal(state.startDate);
+ const result=`# LLM Atlas V3 | ${state.startDate} 起 16 周学习计划\n每周 ${state.hours} 小时｜设备：${state.hardware==="a40"?"RTX 5060 + 可选 1x A40":"RTX 5060 本地"}\n\n`+
+ DATA.weeks.map(w=>{
+  const d1=addDays(base,(w.n-1)*7),d2=addDays(base,w.n*7-1);
+  return `## 第 ${w.n} 周 (${ymd(d1)} ~ ${ymd(d2)}) ${w.title}\n学习目标：${w.goal}\n阅读：\n${w.readings.map(t=>`- ${w.core.includes(t)?"[精读]":"[泛读]"} ${t} | ${byTitle[t].url}`).join("\n")}\n项目：${w.project.title}\n步骤：\n${w.project.steps.map((t,i)=>`${i+1}. ${t}`).join("\n")}\n交付物：${w.project.deliverable}\n验收：${w.project.acceptance}\n降级：${w.project.fallback}\n`
+ }).join("\n");
+ copyText(result);
+}
+function init(){
+ setControls();initLifecycle();initGraph();updateProgress();renderWeeks();renderPapers();persist();
+ const links=[...document.querySelectorAll(".sidebar nav a")];
+ links.forEach(a=>a.addEventListener("click",()=>{links.forEach(x=>x.classList.remove("active"));a.classList.add("active")}));
+}
+init();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"45c2bf8136a245cd97f1c2e9a96c0730","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
