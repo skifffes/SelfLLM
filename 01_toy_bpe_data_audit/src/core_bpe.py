@@ -250,6 +250,14 @@ class ToyBPE:
         scheme = self.config.get("pretokenize", "paper")
         out: list[Symbol] = []
         for block in _split_blocks(text):
+            # Whitespace blocks are atomic single symbols that never participate in any
+            # merge, so passing them through verbatim cannot change the merge result --
+            # it only fixes the fallback for whitespace runs unseen in training, where
+            # "<unk>" would break round-trip ("hello  world" -> "hello<unk>world").
+            # Regular word blocks keep the UNK branch: metrics.py measures that rate.
+            if not block.strip():
+                out.append(block)
+                continue
             symbols = [s if s in self.vocab else UNK
                        for s in _block_symbols(block, scheme)]
             out.extend(self._merge_block(symbols))

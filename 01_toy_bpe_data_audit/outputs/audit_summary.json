@@ -1,0 +1,78 @@
+{
+  "config": {
+    "num_perm": 128,
+    "k": 5,
+    "mode": "char",
+    "bands": 32,
+    "rows": 4,
+    "threshold": 0.8,
+    "seed": 0,
+    "max_docs": null,
+    "probe_chars": 100,
+    "n_probes": 5,
+    "enable_near": true
+  },
+  "near_stage": {
+    "status": "ok",
+    "n_docs": 3965,
+    "n_signatures": 3965,
+    "n_candidates": 1379,
+    "n_verified_pairs": 101,
+    "seconds_signatures": 11.196,
+    "seconds_lsh": 0.12,
+    "seconds_verify": 0.36
+  },
+  "before": {
+    "train": {
+      "docs": 3150,
+      "chars": 3651753,
+      "utf8_bytes": 3977357
+    },
+    "test": {
+      "docs": 815,
+      "chars": 930099,
+      "utf8_bytes": 1015985
+    },
+    "train_redundant_docs": 64,
+    "train_duplicate_rate": 0.020317460317460317,
+    "test_contaminated_docs": 51,
+    "test_contamination_rate": 0.06257668711656442
+  },
+  "after": {
+    "train": {
+      "docs": 3086,
+      "chars": 3577390,
+      "utf8_bytes": 3898472
+    },
+    "test": {
+      "docs": 764,
+      "chars": 883526,
+      "utf8_bytes": 964202
+    },
+    "train_redundant_docs": 0,
+    "train_duplicate_rate": 0.0,
+    "test_contaminated_docs": 0,
+    "test_contamination_rate": 0.0
+  },
+  "detection": {
+    "exact_dup_docs": 60,
+    "exact_cross_split_pairs": 20,
+    "near_pairs_total": 101,
+    "near_cross_split_pairs": 37,
+    "near_dup_docs": 101,
+    "substring_leak_docs": 50,
+    "leak_type_counts": {
+      "exact": 20,
+      "near": 17,
+      "substring": 14,
+      "exact_within_test": 0
+    }
+  },
+  "cleaned_corpus": {
+    "train_docs": 3086,
+    "test_docs": 764,
+    "removed_train": 64,
+    "removed_test": 51
+  },
+  "seconds_total": 15.986
+}

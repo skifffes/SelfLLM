@@ -40,8 +40,29 @@ from .report import score_audit, write_data_card
 NEAR_TRUTH_KINDS = ("exact_dup_train", "near_dup_train", "leak_exact", "leak_near")
 
 
-def try_toy_bpe(train_texts: Sequence[str], num_merges: int) -> Any | None:
-    from .core_bpe import train_bpe
+def try_toy_bpe(
+    train_texts: Sequence[str],
+    num_merges: int,
+    cache_dir: Path | None = None,
+) -> Any | None:
+    """Fit (or reload) the toy tokenizer for one merge budget.
+
+    Training is O(vocab x merges) in this plain implementation -- ~28 min for the
+    default 500+1000+2000+4000 grid -- so an existing outputs/toy_bpe_<n>.json is
+    reused whenever its recorded budget matches.  Pass cache_dir=None to retrain.
+    """
+    from .core_bpe import ToyBPE, train_bpe
+
+    path = (cache_dir or OUTPUTS) / f"toy_bpe_{num_merges}.json"
+    if path.exists():
+        try:
+            cached = ToyBPE.load(path)
+        except (OSError, ValueError, KeyError, TypeError):
+            cached = None
+        if cached is not None and cached.config.get("num_merges") == num_merges:
+            cached.name = f"toy_bpe_{num_merges}"
+            print(f"    reloaded {path.name} ({len(cached.merges)} merges, skipped training)")
+            return cached
 
     try:
         tok = train_bpe(train_texts, num_merges=num_merges)
@@ -56,16 +77,19 @@ def merge_sweep(
     docs: Sequence[dict[str, Any]],
     grid: Sequence[int],
     max_docs: int | None,
+    pretrained: dict[int, Any] | None = None,
 ) -> pd.DataFrame:
     """Compression vs merge budget.  Uses your BPE when available, else HF BPE as proxy.
 
     For byte-level HF BPE, vocab = 256 bytes + 1 special + n_merges, so n_merges is
     recovered as vocab_size - 257.  The `backend` column records which one was used.
+    `pretrained` lets the caller hand over tokenizers already trained in step [1/6],
+    so the same grid is not trained twice (~15 min of CPU saved at 4000 merges).
     """
     stats = doc_stats(docs)
     rows = []
     for n in grid:
-        tok = try_toy_bpe(train_texts, n)
+        tok = (pretrained or {}).get(n) or try_toy_bpe(train_texts, n)
         backend = "toy_bpe"
         if tok is None:
             tok = HFBpeTokenizer.fit(train_texts, vocab_size=n + 257, label=f"hf_bpe_{n + 257}")
@@ -206,12 +230,15 @@ def main() -> None:
     tokenizers = build_baselines(train_texts, [int(x) for x in args.hf_vocabs.split(",")])
     grid = [int(x) for x in args.merges_grid.split(",")]
     toy_missing = False
+    toy_by_n: dict[int, Any] = {}
     for n in grid:
         tok = try_toy_bpe(train_texts, n)
         if tok is None:
             toy_missing = True
         else:
             tokenizers.append(tok)
+            toy_by_n[n] = tok
+            tok.save(out / f"toy_bpe_{n}.json")
     if toy_missing:
         print("  NOTE: src/core_bpe.py is still a stub -> toy BPE rows omitted (baselines only)")
     metrics_df, lengths = build_comparison(tokenizers, docs, max_docs=args.max_docs)
@@ -221,7 +248,7 @@ def main() -> None:
     print(metrics_df[["tokenizer", "lang", "vocab_size", "tokens_per_char", "tokens_per_word", "mean_len", "unk_rate"]].to_string(index=False, float_format=lambda x: f"{x:.4f}"))
 
     print("\n[2/6] merge-budget sweep")
-    sweep = merge_sweep(train_texts, docs, grid, args.max_docs)
+    sweep = merge_sweep(train_texts, docs, grid, args.max_docs, pretrained=toy_by_n)
     sweep.to_csv(out / "merges_sweep.csv", index=False, encoding="utf-8")
 
     print("\n[3/6] figures: lengths / percentiles / ratios / sweep")
@@ -277,8 +304,12 @@ def main() -> None:
         if p.is_file():
             print(f"  {p.relative_to(out)}  ({p.stat().st_size/1024:.1f} KB)")
     print(f"\nelapsed {time.time()-t0:.1f}s   peak RSS {peak_memory_mb():.0f} MB (budget <2048 MB)")
-    if toy_missing or not len(measured):
-        print("PENDING: implement src/core_bpe.py and src/core_minhash.py, then rerun for the full deliverable.")
+    if toy_missing and not len(measured):
+        print("PENDING: implement src/core_bpe.py and src/core_minhash.py, then rerun.")
+    elif toy_missing:
+        print("PENDING: implement src/core_bpe.py, then rerun for the toy tokenizer rows.")
+    elif not len(measured):
+        print("PENDING: implement src/core_minhash.py, then rerun for the near-duplicate stage.")
 
 
 if __name__ == "__main__":

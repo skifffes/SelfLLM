@@ -19,8 +19,15 @@ checkpoints/
 *.bin
 *.safetensors
 wandb/
-outputs/
 runs/
+
+# 实验产物：只保留报告类小文件，重产物不入库
+**/outputs/cleaned/
+**/outputs/checkpoints/
+**/outputs/tmp/
+**/outputs/toy_bpe_*.json
+**/outputs/*.log
+**/outputs/*.err
 
 # OS / IDE
 .DS_Store
