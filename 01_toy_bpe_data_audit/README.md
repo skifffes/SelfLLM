@@ -71,18 +71,18 @@ jupyter lab notebooks/tokenizer_demo.ipynb   # 或 VS Code / Qoder 直接打开
 | 6 | 夹具相似度分布 | 注入类型 / 随机负样本对 | char-5 shingle | oracle Jaccard 直方图 | fig8 |
 | 7 | 预分词消融（你写 BPE 后） | 有无 `</w>`、中文按字/按词 | num_merges 固定 | 长度分布 + round-trip + UNK | 自行加 cell |
 
-## 验收清单（当前实测，基线层）
+## 验收清单（当前实测）
 
-- [x] 语料 4.83MB / 3827 docs（train 3062 / test 765），注入后 3965 docs
-- [x] 长度分布：char / word / HF-BPE×2 已产出；toy-BPE 待你实现后自动加入
+- [x] 语料 ~4.8MB / 3850 docs（train 3086 / test 764），注入后 3965 docs（3150 / 815）
+- [x] 长度分布：char / word / toy-BPE×4 / HF-BPE×2 全部产出（`metrics.csv`）
+- [x] toy-BPE round-trip = 1.0（500/1000/2000/4000 merges 全为 1.0）
 - [x] exact_dup_train 召回 40/40 = 100%
-- [x] leak_exact 召回 20/20 = 100%；leak_span 召回 15/15 = 100%（子串层）
-- [x] leak_near 召回 14/15 = 93.3%（仅子串层；MinHash 层应补到 100%）
-- [x] train 重复率 1.27% → 0.00%；test 污染率 6.13% → 0.00%
+- [x] leak_exact 20/20；leak_near 15/15；leak_span 15/15（子串层 + near 层互补）
+- [x] near_dup light 12/12、medium 12/12；heavy 0/12（containment 0.682–0.764，被 0.8 阈值拒，见失败分析线索 5）
+- [x] train 重复率 2.03% → 0.00%；test 污染率 6.26% → 0.00%
 - [x] boilerplate 陷阱误报 0/12；对照组误报 0/30
-- [ ] near_dup light/medium 召回 ≥ 90% ← **等你的 MinHash**
-- [ ] toy-BPE 进入对照表、round-trip = 1.0 ← **等你的 BPE**
-- [ ] `notes/failure_analysis.md` 与「我的问题」填写完成
+- [ ] 子串层 1 个误报：`zh_孔乙己_00002` 命中维基文库版权模板（已知，未修）
+- [ ] `notes/failure_analysis.md` 线索 6 与「我的问题」待填
 
 ## 已经能看到的三个现象（先自己解释，再写进失败分析）
 

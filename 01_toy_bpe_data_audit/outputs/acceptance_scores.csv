@@ -1,7 +1,7 @@
 ,expected,detected,recall,missed_ids,by_level,false_positives,note
 exact_dup_train,40,40,1.0,[],,,
-near_dup_train,36,0,0.0,"['pg1342_00632', 'pg1342_00633', 'pg1342_00634', 'pg1342_00635', 'pg1661_00492', 'pg1661_00493', 'pg1661_00494', 'pg1661_00495', 'pg1661_00496', 'pg1661_00497', 'pg2701_01069', 'pg2701_01070', 'pg2701_01071', 'pg2701_01072', 'pg2701_01073', 'pg2701_01074', 'pg2701_01075', 'pg2701_01076', 'pg2701_01077', 'pg74_00345']","{'light': {'expected': 12, 'detected': 0, 'recall': 0.0}, 'medium': {'expected': 12, 'detected': 0, 'recall': 0.0}, 'heavy': {'expected': 12, 'detected': 0, 'recall': 0.0}}",,
+near_dup_train,36,24,0.6666666666666666,"['pg1342_00634', 'pg1342_00635', 'pg1661_00496', 'pg1661_00497', 'pg2701_01075', 'pg2701_01076', 'pg2701_01077', 'pg74_00348', 'pg84_00371', 'pg84_00372', 'pg84_00373', 'pg98_00668']","{'light': {'expected': 12, 'detected': 12, 'recall': 1.0}, 'medium': {'expected': 12, 'detected': 12, 'recall': 1.0}, 'heavy': {'expected': 12, 'detected': 0, 'recall': 0.0}}",,
 boilerplate_trap,12,0,,,,0,known-distinct docs sharing a long identical header; any hit is a FP
 leak_exact,20,20,1.0,[],,,
-leak_near,15,14,0.9333333333333333,['pg98_00671'],,,
+leak_near,15,15,1.0,[],,,
 leak_span,15,15,1.0,[],,,

@@ -18,9 +18,9 @@
     "n_signatures": 3965,
     "n_candidates": 1379,
     "n_verified_pairs": 101,
-    "seconds_signatures": 11.196,
-    "seconds_lsh": 0.12,
-    "seconds_verify": 0.36
+    "seconds_signatures": 10.0,
+    "seconds_lsh": 0.189,
+    "seconds_verify": 0.347
   },
   "before": {
     "train": {
@@ -74,5 +74,5 @@
     "removed_train": 64,
     "removed_test": 51
   },
-  "seconds_total": 15.986
+  "seconds_total": 14.922
 }

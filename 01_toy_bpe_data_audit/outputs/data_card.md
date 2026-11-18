@@ -1,6 +1,6 @@
 # 数据卡 · Toy BPE + Data Audit（LLM Atlas V3 · 第 1 周）
 
-- 生成日期：2026-11-13
+- 生成日期：2026-11-18
 - 用途：Tokenizer 对照实验与数据去重/污染检测的教学语料，**不用于训练发布模型**
 - 随机种子：语料 20261112／夹具 20261112／审计 0
 - 复现：`python -m src.prepare_data && python -m src.inject_fixtures && python -m src.run_experiments`
@@ -85,36 +85,36 @@
 ## 5. 去重与污染检测
 
 - 近重复：MinHash num_perm=128, k=5, mode=char, bands=32, rows=4, threshold=0.8
-- 近重复阶段状态：**not_implemented**
+- 近重复阶段状态：**ok**
 - 子串泄漏：每篇 test 取 5 个 100 字符探针，在 train 全文中查找
-- 检出（各层有重叠）：exact 60 篇，near 0 篇，substring 50 篇，跨划分 near 对 0
+- 检出（各层有重叠）：exact 60 篇，near 101 篇，substring 50 篇，跨划分 near 对 37
 
 ## 6. 清洗前后
 
 | 指标 | 清洗前 | 清洗后 |
 |---|---|---|
-| train 文档数 | 3150 | 3110 |
-| test 文档数 | 815 | 765 |
-| train 重复率 | 1.27% | 0.00% |
-| test 污染率 | 6.13% | 0.00% |
-| train 字节 | 3977357 | 3927285 |
+| train 文档数 | 3150 | 3086 |
+| test 文档数 | 815 | 764 |
+| train 重复率 | 2.03% | 0.00% |
+| test 污染率 | 6.26% | 0.00% |
+| train 字节 | 3977357 | 3898472 |
 
 ## 7. 验收得分（对照 ground truth）
 
 | 夹具类型 | 应有 | 检出 | 召回 / 误报 |
 |---|---|---|---|
 | exact_dup_train | 40 | 40 | 100.0% |
-| near_dup_train | 36 | 0 | 0.0% |
+| near_dup_train | 36 | 24 | 66.7% |
 | boilerplate_trap | 12 | 0 | 误报数（越低越好） |
 | leak_exact | 20 | 20 | 100.0% |
-| leak_near | 15 | 14 | 93.3% |
+| leak_near | 15 | 15 | 100.0% |
 | leak_span | 15 | 15 | 100.0% |
 
 近重复按扰动强度：
 | 强度 | 应有 | 检出 | 召回 |
 |---|---|---|---|
-| light | 12 | 0 | 0.0% |
-| medium | 12 | 0 | 0.0% |
+| light | 12 | 12 | 100.0% |
+| medium | 12 | 12 | 100.0% |
 | heavy | 12 | 0 | 0.0% |
 
 - 对照组误报：0 / 30
